@@ -1,0 +1,46 @@
+#!/usr/bin/env python
+"""
+forky - An IRC Bot
+
+"""
+import os
+import sys
+import time
+from django import setup as django_setup
+from control.bot.bot import DjangoBot
+
+sys.path.append(".")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "control.settings")
+django_setup()
+
+from django.conf import settings
+from control.bot.tools import Watcher
+
+
+def start():
+    delay = settings.BOT_RECONNECT_DELAY
+
+    def connect():
+        p = DjangoBot()
+        p.run(host=settings.IRC_SERVER_HOST, port=settings.IRC_SERVER_PORT)
+
+    try:
+        Watcher()
+    except (IOError, OSError) as e:
+        settings.error('Warning: %s' % e)
+
+    while True:
+        try:
+            connect()
+        except KeyboardInterrupt:
+            sys.exit()
+        if not isinstance(delay, int):
+            break
+
+        warning = 'Warning: Disconnected. Reconnecting in %s seconds...' % delay
+        print >> sys.stderr, warning
+        time.sleep(delay)
+
+
+if __name__ == '__main__':
+    start()

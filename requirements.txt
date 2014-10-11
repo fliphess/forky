@@ -1,0 +1,5 @@
+Django==1.7
+PyYAML==3.11
+argparse==1.2.1
+gnureadline==6.3.3
+tabulate==0.7.3
