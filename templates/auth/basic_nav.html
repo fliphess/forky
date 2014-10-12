@@ -3,10 +3,16 @@
     <div class="navbar-header">
       <a class="navbar-brand" href="/"</a>Home</a>
     </div>
+
+    <ul class="nav navbar-nav">
+      <li><a href="{% url "auth_password_reset" %}">Reset Password</a></li>
+      <li><a href="{% url "registration_register" %}">Register</a></li>
+    </ul>
+
     <div class="collapse navbar-collapse">
       <p class="navbar-text pull-right"><a href="/logout">Log Out</a></p>
       <p class="navbar-text pull-right"><a href="/login">Log In</a></p>
-
     </div>
+
   </div>
 </div>

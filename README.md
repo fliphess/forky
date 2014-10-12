@@ -3,14 +3,30 @@
 Django irc bot is based on willie but uses django models for database actions. 
 
 
+## Registration Flow
+1. Create user account on site, or be notified the register page using .meet <name>
+2. Get email, visit link
+3. Subscribed
+4. Edit profile, set nick, hostname and other irc data 
+5. Generate registration token 
+6. msg bot /msg <botnick> register <token>
+7. you are registered!
+
+## Login Flow
+1. Login to django web ui
+2. Generate new registration token
+3. msg bot /msg <botnick> login <token>
+4. you are now logged in!
+
 
 ## TODO
  
 ### Django frontend
 
-- [ ] User registration through django web ui link and email
+- [X] User registration through django web ui link and email
+- [ ] adjust user registration to notify token through private message OR email
 - [ ] Token generation for IRC "login"
-- [ ] Edit user profile page for non admin users
+- [ ] Create user edit profile page for non admin users
 - [ ] control bot page (connect to socket)
 - [ ] live log 
 - [ ] send to channel/priv functionality (also msg oneself to change settings)

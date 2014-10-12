@@ -10,6 +10,7 @@ you're using a custom model.
 
 
 from django import forms
+from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth import get_user_model
 User = get_user_model()
@@ -29,16 +30,27 @@ class RegistrationForm(forms.Form):
     """
     required_css_class = 'required'
     
-    username = forms.RegexField(regex=r'^[\w.@+-]+$',
-                                max_length=30,
-                                label=_("Username"),
-                                error_messages={'invalid': _("This value may contain only letters, numbers and @/./+/-/_ characters.")})
+    username = forms.RegexField(
+        regex=r'^[\w.@+-]+$',
+        max_length=30,
+        label=_("Username"),
+        error_messages={'invalid': _("This value may contain only letters, numbers and @/./+/-/_ characters.")})
+
     email = forms.EmailField(label=_("E-mail"))
-    password1 = forms.CharField(widget=forms.PasswordInput,
-                                label=_("Password"))
-    password2 = forms.CharField(widget=forms.PasswordInput,
-                                label=_("Password (again)"))
-    
+
+    password1 = forms.CharField(
+        widget=forms.PasswordInput,
+        label=_("Password"))
+
+    password2 = forms.CharField(
+        widget=forms.PasswordInput,
+        label=_("Password (again)"))
+
+    tos = forms.BooleanField(
+        widget=forms.CheckboxInput,
+        label=_(u'I have read and agree to the Terms of Service'),
+        error_messages={'required': _("You must agree to the terms to register")})
+
     def clean_username(self):
         """
         Validate that the username is alphanumeric and is not already
@@ -50,6 +62,19 @@ class RegistrationForm(forms.Form):
             raise forms.ValidationError(_("A user with that username already exists."))
         else:
             return self.cleaned_data['username']
+
+    def clean_email(self):
+        """ Validate that the supplied email address is unique for the site.
+        """
+        if User.objects.filter(email__iexact=self.cleaned_data['email']):
+            raise forms.ValidationError(_("This email address is already in use. "
+                                          "Please supply a different email address."))
+
+        email_domain = self.cleaned_data['email'].split('@')[1]
+        if email_domain in settings.EMAIL_BAD_DOMAIN_LIST:
+            raise forms.ValidationError(_("This email provider is listed as prohibited!"
+                                          "Please supply a different email address."))
+        return self.cleaned_data['email']
 
     def clean(self):
         """
@@ -65,56 +90,4 @@ class RegistrationForm(forms.Form):
         return self.cleaned_data
 
 
-class RegistrationFormTermsOfService(RegistrationForm):
-    """
-    Subclass of ``RegistrationForm`` which adds a required checkbox
-    for agreeing to a site's Terms of Service.
-    
-    """
-    tos = forms.BooleanField(widget=forms.CheckboxInput,
-                             label=_(u'I have read and agree to the Terms of Service'),
-                             error_messages={'required': _("You must agree to the terms to register")})
 
-
-class RegistrationFormUniqueEmail(RegistrationForm):
-    """
-    Subclass of ``RegistrationForm`` which enforces uniqueness of
-    email addresses.
-    
-    """
-    def clean_email(self):
-        """
-        Validate that the supplied email address is unique for the
-        site.
-        
-        """
-        if User.objects.filter(email__iexact=self.cleaned_data['email']):
-            raise forms.ValidationError(_("This email address is already in use. Please supply a different email address."))
-        return self.cleaned_data['email']
-
-
-class RegistrationFormNoFreeEmail(RegistrationForm):
-    """
-    Subclass of ``RegistrationForm`` which disallows registration with
-    email addresses from popular free webmail services; moderately
-    useful for preventing automated spam registrations.
-    
-    To change the list of banned domains, subclass this form and
-    override the attribute ``bad_domains``.
-    
-    """
-    bad_domains = ['aim.com', 'aol.com', 'email.com', 'gmail.com',
-                   'googlemail.com', 'hotmail.com', 'hushmail.com',
-                   'msn.com', 'mail.ru', 'mailinator.com', 'live.com',
-                   'yahoo.com']
-    
-    def clean_email(self):
-        """
-        Check the supplied email address against a list of known free
-        webmail domains.
-        
-        """
-        email_domain = self.cleaned_data['email'].split('@')[1]
-        if email_domain in self.bad_domains:
-            raise forms.ValidationError(_("Registration using free email addresses is prohibited. Please supply a different email address."))
-        return self.cleaned_data['email']

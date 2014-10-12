@@ -33,9 +33,6 @@ urlpatterns = patterns(
     '',
     (r'', include('django.contrib.auth.urls')),
 
-    url(r'^login/$', 'django.contrib.auth.views.login', {'template_name': 'auth/login.html'}, name='auth_login'),
-    url(r'^logout/$', 'control.views.auth.logout_view', name='auth_logout'),
-
     url(r'^password/change/$',
         password_change,
         name='auth_password_change'),
@@ -48,7 +45,7 @@ urlpatterns = patterns(
         password_reset,
         name='auth_password_reset'),
 
-    url(r'^password/reset/confirm/(?P<uidb36>[0-9A-Za-z]+)-(?P<token>.+)/$',
+    url(r'^password/reset/confirm/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$',
         password_reset_confirm,
         name='auth_password_reset_confirm'),
 

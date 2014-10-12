@@ -76,7 +76,7 @@ MIDDLEWARE_CLASSES = (
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, 'db/db.sqlite3'),
     }
 }
 
@@ -105,3 +105,7 @@ EMAIL_HOST='localhost'
 EMAIL_PORT=1025
 EMAIL_HOST_USER=None #'username'
 EMAIL_HOST_PASSWORD=None #'password'
+
+EMAIL_BAD_DOMAIN_DB = 'db/bad_domain_list.db'
+with open(EMAIL_BAD_DOMAIN_DB) as l:
+    EMAIL_BAD_DOMAIN_LIST = [i.strip() for i in l.readlines() if i and not i.startswith("#")]

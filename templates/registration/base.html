@@ -1,4 +1,3 @@
-{% load i18n %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,14 +9,14 @@
 <body>
     <div id="header">
     {% block header %}
-    <a href="{% url "start" %}">{% trans "Home" %}</a> | 
+    <a href="{% url "start" %}">Home</a> |
 
     {% if user.is_authenticated %}
-        {% trans "Logged in" %}: {{ user.username }} 
-        (<a href="{% url 'auth_logout' %}">{% trans "Log out" %}</a> | 
-        <a href="{% url 'auth_password_change' %}">{% trans "Change password" %}</a>)
+        Logged in: {{ user.username }}
+        (<a href="{% url 'logout' %}">Log out</a> |
+        <a href="{% url 'auth_password_change' %}">Change password</a>)
     {% else %}
-       <a href="{% url 'auth_login' %}">{% trans "Log in" %}</a>
+       <a href="{% url 'login' %}">Log in</a>
     {% endif %}
     <hr />
     {% endblock %}
