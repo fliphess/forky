@@ -1,0 +1,83 @@
+[
+{
+  "fields": {
+    "topic": "plop",
+    "key": "",
+    "channel": "#botdebug"
+  },
+  "model": "django_ircbot.channel",
+  "pk": 1
+},
+{
+  "fields": {
+    "topic": "op",
+    "key": "",
+    "channel": "#gnoffel"
+  },
+  "model": "django_ircbot.channel",
+  "pk": 3
+},
+{
+  "fields": {
+    "enabled": true,
+    "name": "respond",
+    "filename": "modules/respond.py"
+  },
+  "model": "django_ircbot.module",
+  "pk": 1
+},
+{
+  "fields": {
+    "enabled": true,
+    "name": "message",
+    "filename": "modules/msg.py"
+  },
+  "model": "django_ircbot.module",
+  "pk": 2
+},
+{
+  "fields": {
+    "enabled": true,
+    "name": "coretasks",
+    "filename": "modules/coretasks.py"
+  },
+  "model": "django_ircbot.module",
+  "pk": 3
+},
+{
+  "fields": {
+    "enabled": true,
+    "name": "admin",
+    "filename": "modules/admin.py"
+  },
+  "model": "django_ircbot.module",
+  "pk": 4
+},
+{
+  "fields": {
+    "enabled": true,
+    "name": "help",
+    "filename": "modules/help.py"
+  },
+  "model": "django_ircbot.module",
+  "pk": 5
+},
+{
+  "fields": {
+    "enabled": true,
+    "name": "opsvoice",
+    "filename": "modules/opsvoice.py"
+  },
+  "model": "django_ircbot.module",
+  "pk": 6
+},
+{
+  "fields": {
+    "enabled": true,
+    "name": "kickban",
+    "filename": "modules/kickban.py"
+  },
+  "model": "django_ircbot.module",
+  "pk": 7
+}
+]

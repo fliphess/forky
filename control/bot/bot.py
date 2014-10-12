@@ -17,6 +17,7 @@ import re
 import threading
 from datetime import datetime
 import sys
+from django.conf import settings
 from tabulate import tabulate
 from django import setup as django_setup
 
@@ -186,7 +187,7 @@ class DjangoBot(irc.Bot):
             return self
 
     def setup(self):
-        self.log.info("\nWelcome to Django IRC Bot. Loading modules...\n\n")
+        self.log.info("Welcome to Django IRC Bot. Loading modules...")
         modules = []
         error_count = 0
 
@@ -207,8 +208,8 @@ class DjangoBot(irc.Bot):
                     self.log.error("Error in %s setup procedure: %s (in %s)" % (item.name, e, item.filename))
 
         if modules:
-            self.log.info('\n\nRegistered %d modules,' % (len(modules) - 1))
-            self.log.info('%d modules failed to load\n\n' % error_count)
+            self.log.info('Registered %d modules,' % (len(modules) - 1))
+            self.log.info('%d modules failed to load' % error_count)
         else:
             self.log.error("Warning: Couldn't find any modules")
         self.bind_commands()
@@ -366,15 +367,6 @@ class DjangoBot(irc.Bot):
             s = unicode.__new__(cls, text)
             user = BotUser.objects.filter(nick=origin.nick, host=origin.hostmask)
 
-            if user:
-                s.user_object = user[0]
-                s.registered = True
-                s.admin = s.user_object.admin
-            else:
-                s.user_object = False
-                s.registered = False
-                s.admin = False
-
             s.sender = origin.sender
             s.hostmask = origin.hostmask
             s.user = origin.user
@@ -387,14 +379,15 @@ class DjangoBot(irc.Bot):
             s.args = args
             s.host = origin.host
 
-            if s.sender is not s.nick:  # no ops in PM
-                s.isop = s.user_object.operator
-                s.isvoice = s.user_object.voice
-                s.isbanned = s.user_object.banned
-            else:
-                s.isop = False
-                s.isvoice = False
-                s.isbanned = False
+            s.isop, s.isvoice, s.isbanned = False, False, False
+            s.user_object, s.registered, s.admin = False, False, False
+
+            if user:
+                s.user_object, s.registered, s.admin = user[0], True, s.user_object.admin
+                if s.sender is not s.nick:  # no ops in PM
+                    s.isop = s.user_object.operator
+                    s.isvoice = s.user_object.voice
+                    s.isbanned = s.user_object.banned
             return s
 
     def call(self, func, origin, bot, trigger):
@@ -405,11 +398,8 @@ class DjangoBot(irc.Bot):
             timediff = time.time() - self.times[nick][func]
             if timediff < func.rate:
                 self.times[nick][func] = time.time()
-                self.debug(
-                    'bot.py',
-                    "%s prevented from using %s in %s: %d < %d" % (
-                        trigger.nick, func.__name__, trigger.sender, timediff, func.rate),
-                    "warning")
+                self.log.warn("%s prevented from using %s in %s: %d < %d" % (
+                    trigger.nick, func.__name__, trigger.sender, timediff, func.rate))
                 return
 
         try:
@@ -436,12 +426,8 @@ class DjangoBot(irc.Bot):
                 if not match:
                     continue
                 trigger = self.Trigger(text, origin, text, match, event, args, self)
-                if not trigger.registered:
-                    self.debug(
-                        __file__,
-                        "Prevented from using %s because user %s is not registered" % (funcs, origin.hostmask),
-                        "warning")
-                    return
+
+                # TODO - If in blocklist: ignore
 
                 for func in funcs:
                     if event != func.event:
@@ -455,11 +441,6 @@ class DjangoBot(irc.Bot):
                     else:
                         self.call(func, origin, wrapper, trigger)
 
-    def debug(self, tag, text, level):
-        debug_msg = "[%s] %s" % (tag, text)
-        print debug_msg 
-        self.msg('stdio', debug_msg)
-        return True
 
 if __name__ == '__main__':
     print __doc__

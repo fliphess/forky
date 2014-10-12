@@ -59,10 +59,12 @@ class Bot(asynchat.async_chat):
         self.buffer = ''
 
         self.nick = Nick(settings.BOT_NICK)
+        self.ident = settings.BOT_IDENT
         self.name = settings.BOT_NAME
         self.log = logger()
 
         self.stack = []
+        self.channels = []
         self.ca_certs = '/etc/pki/tls/cert.pem'
         self.has_quit = False
 
@@ -91,6 +93,7 @@ class Bot(asynchat.async_chat):
             else:
                 temp = u' '.join(args)[:510] + '\r\n'
             self.send(temp.encode('utf-8'))
+            self.log.debug(temp.encode('utf-8'))
         finally:
             self.writing_lock.release()
 
@@ -186,7 +189,7 @@ class Bot(asynchat.async_chat):
         if settings.IRC_SERVER_PASSWORD is not None:
             self.write(('PASS', settings.IRC_SERVER_PASSWORD))
         self.write(('NICK', self.nick))
-        self.write(('USER', self.nick, '+iw', self.nick), self.name)
+        self.write(('USER', self.ident, '+iw', self.nick), self.name)
 
         self.log.info('Connected.')
         self.last_ping_time = datetime.now()
@@ -257,7 +260,6 @@ class Bot(asynchat.async_chat):
                     data = unicode(data, encoding='iso8859-1')
                 except:
                     return
-
         self.buffer += data
 
     def found_terminator(self):
@@ -288,7 +290,7 @@ class Bot(asynchat.async_chat):
         if args[0] == 'PING':
             self.write(('PONG', text))
         elif args[0] == 'ERROR':
-            self.debug('IRC Server Error', text, 'always')
+            self.log.warn('IRC Server Error: %s' % text)
         elif args[0] == '433':
             self.log.error('Nickname already in use!')
             self.has_quit = True
@@ -378,21 +380,20 @@ class Bot(asynchat.async_chat):
 
             except Exception as e:
                 self.log.error("Could not save full traceback!")
-                self.debug(
-                    "core: error reporting", "(From: " + origin.sender + "), can't save traceback: " + str(e), 'always')
+                self.log.warn("Error reporting: (From: %s), can't save traceback: %s" % (origin.sender, str(e)))
             if origin:
                 self.msg(recipient=origin.sender, text=signature)
 
         except Exception as e:
             if origin:
                 self.msg(origin.sender, "Got an error.")
-                self.debug("core: error reporting", "(From: %s) %s" % (origin.sender, str(e)), 'always')
+                self.log.warn("Error reporting (From: %s) %s" % (origin.sender, str(e)))
 
     def handle_error(self):
         """ Handle any un captured error in the core. Overrides asyncore's handle_error """
         trace = traceback.format_exc()
         self.log.error(trace)
-        self.debug("core", 'Fatal error in core, please review exception log', 'always')
+        self.log.warn('Fatal error in core, please review exception log')
 
         logfile = codecs.open(settings.LOG_EXCEPTIONS, 'a', encoding='utf-8')
         logfile.write('Fatal error in core, handle_error() was called\n')
@@ -415,4 +416,4 @@ class Bot(asynchat.async_chat):
 
 
 if __name__ == "__main__":
-    print __doc__.strip()
+    print __doc__

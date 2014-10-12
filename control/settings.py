@@ -75,6 +75,7 @@ DATABASES = {
 
 # BOT SETTINGS
 BOT_NICK = 'FlipperBot'
+BOT_IDENT = 'botje'
 BOT_NAME = 'Flipjes irc bot: https://github.com/fliphess/forky'
 BOT_PREFIX = '\.'
 BOT_RECONNECT_DELAY = 20
