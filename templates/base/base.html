@@ -1,0 +1,19 @@
+{% block html %}
+<!doctype html>
+<html lang="en">
+
+{% block head %}
+{% include "base/nav/head.html" %}
+{% endblock %}
+
+{% block body %}
+<body>
+  {% block navbar %}{% endblock %}
+  {% block content %}{% endblock %}
+  {% block footer %}{% endblock %}
+  <script src="/static/js/bootstrap.min.js"></script>
+</body>
+{% endblock %}
+
+</html>
+{% endblock %}

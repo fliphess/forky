@@ -1,0 +1,25 @@
+{% extends "base/template.html" %}
+
+{% block head %}
+    <link href="/static/css/404.css" rel="stylesheet">
+{% endblock %}
+
+{% block main %}
+
+<div class="row">
+  <div class="span12">
+    <div class="hero-unit center">
+
+    {% block error %}
+      <h1>{{ message }}<small><font face="Tahoma" color="red"></h1>
+      <h1><small>Error {{ errormessage }} </small></h1>
+    {% endblock %}
+
+    <br>
+    <p>Something went wrong! The page you were trying to request could not be served.</p>
+    <p><b>Push the button to go back to start.</b></p>
+    <a href="{{ url "start" }}" class="btn btn-large btn-info"><i class="icon-home icon-black "></i> Take Me Home</a>
+    </div>
+  </div>
+</div>
+{% endblock %}
