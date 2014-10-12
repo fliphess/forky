@@ -1,7 +1,9 @@
 # coding=utf-8
 from django.conf import settings
+from django.contrib.auth import get_user_model
 from control.bot.decorators import event, rule, priority, commands
-from django_ircbot.models import Channel, BotUser
+from frontend.models import Channel
+BotUser = get_user_model()
 
 
 @event('251')
@@ -32,7 +34,7 @@ def startup(bot, trigger):
 def list_ops(bot, trigger):
     """ List channel operators in the given channel, or current channel if none is given.
     """
-    ops = [i.nick for i in BotUser.objects.filter(operator=True)]
+    ops = [i.nick for i in BotUser.objects.filter(is_operator=True)]
     if not ops:
         bot.say('No operators defined in DB!')
     else:
@@ -43,7 +45,7 @@ def list_ops(bot, trigger):
 def list_voices(bot, trigger):
     """ List users with voice in the given channel, or current channel if none is given.
     """
-    voice = [i.nick for i in BotUser.objects.filter(voice=True)]
+    voice = [i.nick for i in BotUser.objects.filter(is_voice=True)]
     if not voice:
         bot.say('No half ops defined in DB!')
     else:

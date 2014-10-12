@@ -9,26 +9,32 @@ Licensed under the Eiffel Forum License 2.
 
 http://ircbot.dftba.net/
 """
-from imp import load_source
-import os
 
-import time
+from imp import load_source
+import irc
+
+import os
 import re
-import threading
-from datetime import datetime
 import sys
-from django.conf import settings
+import threading
+import time
+from datetime import datetime
 from tabulate import tabulate
+
+from django.conf import settings
 from django import setup as django_setup
 
 sys.path.append(".")
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "control.settings")
 django_setup()
 
-from django_ircbot.exceptions import BotException
-from django_ircbot.models import Module, BotUser
-import irc
+from django.contrib.auth import get_user_model
+from frontend.exceptions import BotException
+from frontend.models import Module
 from tools import PriorityQueue, Released, get_command_regexp, BotMemory
+
+
+BotUser = get_user_model()
 
 
 class DjangoBot(irc.Bot):
@@ -380,13 +386,13 @@ class DjangoBot(irc.Bot):
             s.host = origin.host
 
             s.isop, s.isvoice, s.isbanned = False, False, False
-            s.user_object, s.registered, s.admin = False, False, False
+            s.user_object, s.registered, s.admin = False, False, True
 
             if user:
-                s.user_object, s.registered, s.admin = user[0], True, s.user_object.admin
+                s.user_object, s.registered, s.admin = user[0], True, s.user_object.is_admin
                 if s.sender is not s.nick:  # no ops in PM
-                    s.isop = s.user_object.operator
-                    s.isvoice = s.user_object.voice
+                    s.isop = s.user_object.is_operator
+                    s.isvoice = s.user_object.is_voice
                     s.isbanned = s.user_object.banned
             return s
 

@@ -46,14 +46,18 @@ TEMPLATE_DIRS = (os.path.join(BASE_DIR, 'templates'),)
 
 # APPS
 INSTALLED_APPS = (
-    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_ircbot',
+    'django.contrib.admin',
+    'frontend',
 )
+
+# AUTH
+AUTH_USER_MODEL = 'frontend.BotUser'
+
 
 # MIDDLEWARE
 MIDDLEWARE_CLASSES = (
@@ -61,6 +65,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.auth.middleware.RemoteUserMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )

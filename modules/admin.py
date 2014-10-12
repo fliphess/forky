@@ -3,7 +3,7 @@
     admin.py - bot Admin Module
 """
 from control.bot.decorators import commands, priority, example
-from django_ircbot.models import Channel
+from frontend.models import Channel
 
 
 @commands('channels', 'list_channels')

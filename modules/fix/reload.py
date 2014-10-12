@@ -3,7 +3,7 @@ from imp import load_source
 import os
 import sys
 from control.bot.decorators import commands, priority, thread
-from django_ircbot.models import Module
+from frontend.models import Module
 
 
 @commands(['reload'])

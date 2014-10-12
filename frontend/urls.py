@@ -1,7 +1,7 @@
 # from django.conf.urls import patterns, include, url
 # from django.contrib import admin
 # from django.contrib.auth.decorators import login_required
-# from django_ircbot.views import CommandOverView, CommandEditor, AddCommand, EditCommand, DeleteCommand, CommandExecutor
+# from frontend.views import CommandOverView, CommandEditor, AddCommand, EditCommand, DeleteCommand, CommandExecutor
 #
 # admin.autodiscover()
 #

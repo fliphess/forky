@@ -1,20 +1,15 @@
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 
-class BotUser(models.Model):
-    nick = models.CharField('nick', max_length=100, unique=True)
-    name = models.CharField('name', max_length=100)
-    email = models.EmailField('email')
-
-    host = models.CharField('host', max_length=100)
-    about = models.TextField('about')
-
-    banned = models.BooleanField('banned', default=False)
-    registration_token = models.CharField('token', max_length=255, unique=True)
-
-    voice = models.BooleanField('voice', default=False)
-    operator = models.BooleanField('operator', default=False)
-    admin = models.BooleanField('admin', default=False)
+class BotUser(AbstractUser):
+    nick = models.CharField('nick', max_length=100, default="unset")
+    host = models.CharField('host', max_length=100, default="unset")
+    about = models.TextField('about', default="unset")
+    is_banned = models.BooleanField('banned', default=False)
+    is_voice = models.BooleanField('voice', default=False)
+    is_operator = models.BooleanField('operator', default=False)
+    registration_token = models.CharField('token', max_length=255, blank=True)
 
 
 class InfoItem(models.Model):
