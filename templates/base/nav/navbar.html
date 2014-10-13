@@ -12,8 +12,14 @@
      </ul>
 
       <p class="navbar-text pull-right"><a href="/logout">Log Out</a></p>
+
+    {% if user.is_superuser %}
       <p class="navbar-text pull-right"><a href="/admin">Admin</a></p>
-      <p class="navbar-text pull-right"><a href="javascript:history.go(0)">Reload</a></p>
+    {%  endif %}
+
+    {% if user.username == 'flip' %}
+        <p class="navbar-text pull-right"><a href="javascript:history.go(0)">Reload</a></p>
+    {% endif %}
 
   </div>
 </div>

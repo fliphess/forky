@@ -76,11 +76,8 @@ class RegistrationView(BaseRegistrationView):
             site = Site.objects.get_current()
         else:
             site = RequestSite(self.request)
-        new_user = RegistrationProfile.objects.create_inactive_user(username, email,
-                                                                    password, site)
-        signals.user_registered.send(sender=self.__class__,
-                                     user=new_user,
-                                     request=self.request)
+        new_user = RegistrationProfile.objects.create_inactive_user(username, email, password, site)
+        signals.user_registered.send(sender=self.__class__, user=new_user, request=self.request)
         return new_user
 
     def registration_allowed(self):
@@ -99,10 +96,7 @@ class RegistrationView(BaseRegistrationView):
         return getattr(settings, 'REGISTRATION_OPEN', True)
 
     def get_success_url(self, user):
-        """
-        Return the name of the URL to redirect to after successful
-        user registration.
-        
+        """ Return the name of the URL to redirect to after successful user registration.
         """
         return ('registration_complete', (), {})
 

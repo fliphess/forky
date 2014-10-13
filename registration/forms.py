@@ -1,7 +1,7 @@
 """
 Forms and validation code for user registration.
 
-Note that all of these forms assume Django's bundle default ``User``
+Note that all of these forms assume Django bundle default ``User``
 model; since it's not possible for a form to anticipate in advance the
 needs of custom user models, you will need to write your own forms if
 you're using a custom model.
@@ -48,14 +48,11 @@ class RegistrationForm(forms.Form):
 
     tos = forms.BooleanField(
         widget=forms.CheckboxInput,
-        label=_(u'I have read and agree to the Terms of Service'),
-        error_messages={'required': _("You must agree to the terms to register")})
+        label=_(u'I will not be an asshole'),
+        error_messages={'required': _("I will not be an asshole")})
 
     def clean_username(self):
-        """
-        Validate that the username is alphanumeric and is not already
-        in use.
-        
+        """ Validate that the username is alphanumeric and is not already in use.
         """
         existing = User.objects.filter(username__iexact=self.cleaned_data['username'])
         if existing.exists():
@@ -78,16 +75,10 @@ class RegistrationForm(forms.Form):
 
     def clean(self):
         """
-        Verifiy that the values entered into the two password fields
-        match. Note that an error here will end up in
-        ``non_field_errors()`` because it doesn't apply to a single
-        field.
-        
+        Verify that the values entered into the two password fields match.
+        Note that an error here will end up in ``non_field_errors()`` because it doesn't apply to a single field.
         """
         if 'password1' in self.cleaned_data and 'password2' in self.cleaned_data:
             if self.cleaned_data['password1'] != self.cleaned_data['password2']:
                 raise forms.ValidationError(_("The two password fields didn't match."))
         return self.cleaned_data
-
-
-
