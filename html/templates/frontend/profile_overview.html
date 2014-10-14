@@ -1,0 +1,20 @@
+{% extends "base/template.html" %}
+
+{% block content %}
+
+
+<div class="container">
+
+  <div class="row">
+    {% include "frontend/profile/left_pane.html" %}
+    {% include "frontend/profile/right_pane.html" %}
+  </div>
+
+  <div class="row">
+    {% include "frontend/profile/bottom_pane.html" %}
+  </div>
+
+</div>
+
+
+{% endblock %}

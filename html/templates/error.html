@@ -1,7 +1,7 @@
 {% extends "base/template.html" %}
-
+{% load staticfiles %}
 {% block head %}
-    <link href="/static/css/404.css" rel="stylesheet">
+    <link href="{%  static "/static/css/404.css" %}" rel="stylesheet">
 {% endblock %}
 
 {% block main %}
@@ -18,7 +18,7 @@
     <br>
     <p>Something went wrong! The page you were trying to request could not be served.</p>
     <p><b>Push the button to go back to start.</b></p>
-    <a href="{{ url "start" }}" class="btn btn-large btn-info"><i class="icon-home icon-black "></i> Take Me Home</a>
+    <a href="{%  url "start" %}" class="btn btn-large btn-info"><i class="icon-home icon-black "></i> Take Me Home</a>
     </div>
   </div>
 </div>

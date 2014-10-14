@@ -1,0 +1,91 @@
+
+        <div class="col-lg-6" >
+          <div class="panel panel-info">
+
+            <div class="panel-heading">
+              <h3 class="panel-title">IRC</h3>
+            </div>
+
+            <div class="panel-body">
+              <div class="row">
+
+                <div class=" col-md-9 col-lg-9 ">
+                  <table class="table table-user-information">
+
+                    <tbody>
+                      <tr>
+                        <td>User name:</td>
+                        <td>{{ user.username }}</td>
+                      </tr>
+
+                      <tr>
+                        <td>Host mask</td>
+                        <td>{{ user.host }}</td>
+                      </tr>
+
+                      <tr>
+                        <td>Banned</td>
+                      {% if user.is_banned == True %}
+                        <td>User is banned <i class="fa fa-lock"></i></td>
+                      {% else %}
+                        <td>User is not banned <i class="fa fa-unlock"></i></td>
+                      {% endif %}
+                      </tr>
+
+                      <tr>
+                          <table class="table table-user-informatio ">
+                              <td><i>Status</i></td>
+                              {% if user.is_active == True %}
+                                <td class="alert-success"> Active</td>
+                              {% else %}
+                                <td class="alert-warning">Inactive</td>
+                              {% endif %}
+
+                              {% if user.is_voice == True %}
+                                <td class="alert-success">Voice</td>
+                              {% else %}
+                                <td class="alert-warning">Voice</td>
+                              {% endif %}
+
+                              {% if user.is_operator == True %}
+                                <td class="alert-success">Operator</td>
+                              {% else %}
+                                <td class="alert-warning">Operator</td>
+                              {% endif %}
+
+                              {% if user.is_staff == True %}
+                                <td class="alert-success">Staff</td>
+                              {% else %}
+                                <td class="alert-warning">Staff</td>
+                              {% endif %}
+
+                              {% if user.is_superuser == True %}
+                                <td class="alert-success">Superuser</td>
+                              {% else %}
+                                <td class="alert-warning">Superuser/td>
+                              {% endif %}
+                          </table>
+                      </tr>
+
+                      <tr>
+                        <td>About</td>
+                        <td>"<i>{{ user.about }}"</i></td>
+                      </tr>
+
+                    </tbody>
+                  </table>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="panel-footer">
+              <a data-original-title="Broadcast Message" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary"><i class="fa fa-unlock"></i> get voice</a>
+              <a data-original-title="Broadcast Message" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary"><i class="fa fa-gavel"></i> get ops</a>
+              <a data-original-title="Broadcast Message" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary"><i class="fa fa-envelope-o"></i> send msg</a>
+              <a data-original-title="Broadcast Message" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary"><i class="fa fa-ban"></i> Request a ban</a>
+            </div>
+
+          </div>
+        </div>
+

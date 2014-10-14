@@ -36,12 +36,12 @@ WSGI_APPLICATION = 'control.wsgi.application'
 
 # STATIC
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'html/static'),)
 
 
 # TEMPLATES
 TEMPLATE_DEBUG = True
-TEMPLATE_DIRS = (os.path.join(BASE_DIR, 'templates'),)
+TEMPLATE_DIRS = (os.path.join(BASE_DIR, 'html/templates'),)
 
 
 # APPS
