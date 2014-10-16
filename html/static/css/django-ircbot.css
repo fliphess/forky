@@ -14,7 +14,9 @@ pre {
   body { padding-top: 0px; }
 }
 
-
+.btn-group{
+    padding: 15px;
+}
 
 .hori-center {
     display: table-cell;

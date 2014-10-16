@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="panel panel-info">
+
+    <div class="panel-heading">
+      <h3 class="panel-title">Control</h3>
+    </div>
+
+    <div class="panel-body">
+      <div class="row">
+
+         <div class="btn-group pull-left">
+           <a data-original-title="Broadcast Message" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary"><i class="fa fa-unlock"></i> get voice</a>
+           <a data-original-title="Broadcast Message" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary"><i class="fa fa-gavel"></i> get ops</a>
+           <a data-original-title="Broadcast Message" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary"><i class="fa fa-envelope-o"></i> send msg</a>
+           <a data-original-title="Broadcast Message" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary"><i class="fa fa-ban"></i> Request a ban</a>
+         </div>
+
+         <div class="btn-group pull-right">
+           <a href="{% url "edit_profile" %}" data-original-title="Edit profile" data-toggle="tooltip" type="button" class="btn btn-sm btn-default"><i class="fa fa-cogs"></i> Edit profile</a>
+           <a href="{% url "delete_profile" %}" data-original-title="Delete profile" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"><i class="fa fa-ban">   Delete profile</i></a>
+         </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

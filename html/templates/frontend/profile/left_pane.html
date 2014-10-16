@@ -14,17 +14,17 @@
 
                     <tbody>
                       <tr>
-                        <td>User name:</td>
-                        <td>{{ user.username }}</td>
+                        <td>Nickname:</td>
+                        <td>{{ user.nick }}</td>
                       </tr>
 
                       <tr>
-                        <td>Host mask</td>
+                        <td>Host mask:</td>
                         <td>{{ user.host }}</td>
                       </tr>
 
                       <tr>
-                        <td>Banned</td>
+                        <td>Banned:</td>
                       {% if user.is_banned == True %}
                         <td>User is banned <i class="fa fa-lock"></i></td>
                       {% else %}
@@ -34,7 +34,7 @@
 
                       <tr>
                           <table class="table table-user-informatio ">
-                              <td><i>Status</i></td>
+                              <td><i>Status:</i></td>
                               {% if user.is_active == True %}
                                 <td class="alert-success"> Active</td>
                               {% else %}
@@ -62,13 +62,13 @@
                               {% if user.is_superuser == True %}
                                 <td class="alert-success">Superuser</td>
                               {% else %}
-                                <td class="alert-warning">Superuser/td>
+                                <td class="alert-warning">Superuser</td>
                               {% endif %}
                           </table>
                       </tr>
 
                       <tr>
-                        <td>About</td>
+                        <td>About:</td>
                         <td>"<i>{{ user.about }}"</i></td>
                       </tr>
 
@@ -80,10 +80,6 @@
             </div>
 
             <div class="panel-footer">
-              <a data-original-title="Broadcast Message" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary"><i class="fa fa-unlock"></i> get voice</a>
-              <a data-original-title="Broadcast Message" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary"><i class="fa fa-gavel"></i> get ops</a>
-              <a data-original-title="Broadcast Message" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary"><i class="fa fa-envelope-o"></i> send msg</a>
-              <a data-original-title="Broadcast Message" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary"><i class="fa fa-ban"></i> Request a ban</a>
             </div>
 
           </div>

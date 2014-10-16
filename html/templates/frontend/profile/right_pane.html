@@ -23,18 +23,18 @@
                       </tr>
 
                       <tr>
-                        <td>Joined</td>
+                        <td>Joined:</td>
                         <td>{{ user.date_joined }}</td>
                       </tr>
 
 
                       <tr>
-                        <td>Last login</td>
+                        <td>Last login:</td>
                         <td>{{ user.last_login }}</td>
                       </tr>
 
                       <tr>
-                        <td>Email</td>
+                        <td>Email:</td>
                         <td><a href="mailto:{{ user.email }}">{{ user.email }}</a></td>
                       </tr>
 
@@ -46,10 +46,6 @@
             </div>
 
             <div class="panel-footer">
-              <a href="{% url "edit_profile" %}" data-original-title="Edit profile" data-toggle="tooltip" type="button" class="btn btn-sm btn-default"><i class="fa fa-cogs"></i> Edit profile</a>
-              <span class="pull-right">
-                <a href="{% url "delete_profile" %}" data-original-title="Delete profile" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"><i class="fa fa-ban">   Delete profile</i></a>
-              </span>
             </div>
 
           </div>

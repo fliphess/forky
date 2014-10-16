@@ -2,8 +2,13 @@
 
 {% block content %}
 
+{% include "base/alert/alert.html" %}
 
 <div class="container">
+
+  <div class="row">
+    {% include "frontend/profile/control_pane.html" %}
+  </div>
 
   <div class="row">
     {% include "frontend/profile/left_pane.html" %}

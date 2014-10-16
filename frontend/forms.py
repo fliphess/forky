@@ -10,7 +10,7 @@ class EditProfileForm(forms.Form):
     last_name = forms.CharField(required=True, label="Last name")
     email = forms.EmailField(required=True, label="Email address")
     nick = forms.RegexField(
-        regex=r'^[a-z_\-\[\]\\^{}|`]{0,15}$',
+        regex=r'^[A-Za-z_\-\[\]\\^{}|`]{0,15}$',
         max_length=15,
         label="Nickname",
         error_messages={'invalid': "Invalid nickname!"})
@@ -22,10 +22,6 @@ class EditProfileForm(forms.Form):
             raise forms.ValidationError('This nickname is already claimed by another user.')
 
     def clean_email(self):
-        if BotUser.objects.filter(email__iexact=self.cleaned_data['email']):
-            raise forms.ValidationError("This email address is already in use. "
-                                        "Please supply a different email address.")
-
         email_domain = self.cleaned_data['email'].split('@')[1]
         if email_domain in settings.EMAIL_BAD_DOMAIN_LIST:
             raise forms.ValidationError("This email provider is listed as prohibited!"

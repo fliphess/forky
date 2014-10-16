@@ -10,6 +10,7 @@
 {% block body %}
 
 {% include "auth/basic_nav.html" %}
+{% include "base/alert/alert.html" %}
 
 <div class="container">
   <form class="form-signin" role="form" action="{% url 'django.contrib.auth.views.login' %}" method="POST">

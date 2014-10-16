@@ -1,15 +1,12 @@
 {% extends "base/template.html" %}
 
 {% block content %}
+
+{% include "base/alert/alert.html" %}
+
  <div class="row">
   <div class="container">
     <div class="hero-unit center">
-
-        {% if success == True %}
-            {% include "base/alert/alert_ok.html" %}
-        {% elif success == False %}
-            {% include "base/alert/alert_nok.html" %}
-        {% endif %}
 
         <form action="{% url "edit_profile" %}" method="post">{% csrf_token %}
           <table>
