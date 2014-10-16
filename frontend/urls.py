@@ -9,5 +9,4 @@ urlpatterns = patterns(
     url(r'^edit/?$', login_required(EditProfile.as_view()), name='edit_profile'),
     url(r'^delete/?$', login_required(DeleteProfile.as_view()), name='delete_profile'),
     url(r'^regenerate_token/?$', login_required(RegenerateToken.as_view()), name='regenerate_token'),
-
 )
