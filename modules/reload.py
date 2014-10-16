@@ -40,5 +40,5 @@ def f_reload(bot, trigger):
     bot.bind_commands()
 
     msg = 'RELOADED: %r -- (%s)' % (", ".join(modules), trigger.nick)
-    bot.say(msg)
     bot.log.debug(msg)
+    return bot.say(msg)

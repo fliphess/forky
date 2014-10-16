@@ -1,5 +1,17 @@
-Activate account at {{ site.name }}:
+Hi! {{ user.full }}
 
-http://{{ site.domain }}{% url 'registration_activate' activation_key %}
+You receive this email because you appear to have registered at {{ site.name }}
 
-Link is valid for {{ expiration_days }} days.
+If not? No problem, delete this email and all is well.
+If you do, please read this instruction email to activate your account.
+
+Activate your account by clicking the link below and fill in the form.
+Now after being registered, activate the bot by sending a private message:
+
+    /msg <botnick> register <registration_token>
+
+Activation link:
+    http://{{ site.domain }}{% url 'registration_activate' activation_key %}
+
+
+This validation link is valid for {{ expiration_days }} days.

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from frontend.models import InfoItem, Channel, Module, BotUser
+from frontend.models import InfoItem, Channel, Module, BotUser, Ban, Quote
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import ugettext_lazy as _
 
@@ -53,4 +53,16 @@ class ChannelAdmin(BaseAdmin):
 @admin.register(Module)
 class ModuleAdmin(BaseAdmin):
     fields = ('name', 'enabled', 'filename')
+    list_display = fields
+
+
+@admin.register(Ban)
+class BanAdmin(BaseAdmin):
+    fields = ('nick', 'user', 'host')
+    list_display = fields
+
+
+@admin.register(Quote)
+class QuoteAdmin(BaseAdmin):
+    fields = ('user', 'quote', 'date_added')
     list_display = fields

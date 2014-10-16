@@ -61,5 +61,103 @@
   },
   "model": "frontend.module",
   "pk": 7
-}
+},
+{
+  "fields": {
+    "enabled": true,
+    "name": "about",
+    "filename": "modules/about.py"
+  },
+  "model": "frontend.module",
+  "pk": 8
+},
+{
+  "fields": {
+    "enabled": true,
+    "name": "info",
+    "filename": "modules/info.py"
+  },
+  "model": "frontend.module",
+  "pk": 9
+},
+{
+  "fields": {
+    "enabled": true,
+    "name": "reload",
+    "filename": "modules/reload.py"
+  },
+  "model": "frontend.module",
+  "pk": 10
+},
+{
+  "fields": {
+    "enabled": true,
+    "name": "users",
+    "filename": "modules/users.py"
+  },
+  "model": "frontend.module",
+  "pk": 11
+},
+{
+  "fields": {
+    "enabled": true,
+    "name": "socket_listener",
+    "filename": "modules/socket_listener.py"
+  },
+  "model": "frontend.module",
+  "pk": 12
+},
+{
+  "fields": {
+    "enabled": true,
+    "name": "quotes",
+    "filename": "modules/quotes.py"
+  },
+  "model": "frontend.module",
+  "pk": 13
+},
+{
+  "fields": {
+    "username": "flip",
+    "first_name": "Flip",
+    "last_name": "Hess",
+    "is_operator": true,
+    "nick": "Flipke",
+    "is_voice": true,
+    "registered": true,
+    "is_active": true,
+    "about": "Shut up or i'll replace you with an IRC Bot",
+    "is_superuser": true,
+    "host": "ident@some-domain-name.com",
+    "is_staff": true,
+    "last_login": "2014-10-16T20:18:31.587Z",
+    "groups": [],
+    "registration_token": "hh0l0kwcEDxk6tBYlSnt4dTZsspTm18X3he8xnocTBDshDQzqMRnyUZrPAM2",
+    "user_permissions": [],
+    "is_banned": false,
+    "password": "pbkdf2_sha256$12000$CCyoz224kPne$GNafpVgLmPDY0PYMm+ifvxI0QpWVNt5rBwq0TVSCE18=",
+    "email": "flip@fliphess.com",
+    "date_joined": "2014-10-16T20:18:31.587Z"
+  },
+  "model": "frontend.botuser",
+  "pk": 1
+},
+{
+  "fields": {
+    "topic": "plop",
+    "key": "",
+    "channel": "#botdebug"
+  },
+  "model": "frontend.channel",
+  "pk": 1
+},
+{
+  "fields": {
+    "topic": "plop",
+    "key": "",
+    "channel": "#gnoffel"
+  },
+  "model": "frontend.channel",
+  "pk": 2
+},
 ]

@@ -1,7 +1,5 @@
-from peewee import DoesNotExist
-
 from control.bot.decorators import example, priority, commands
-from ircbot.models import InfoItem, start_db
+from frontend.models import InfoItem
 
 
 @commands(['info'])
@@ -10,14 +8,16 @@ from ircbot.models import InfoItem, start_db
 def info(bot, trigger):
     try:
         item = trigger.group(2).split(' ')[0]
-        start_db(bot.settings)
-        obj = InfoItem.get(item=item)
+        obj = InfoItem.objects.filter(item=item)
+
     except (AttributeError, IndexError):
         return bot.reply('Usage: .info <item>')
-    except DoesNotExist:
+
+    if not obj:
         bot.settings.log.info('Requested item "%s" not found!' % trigger.group(2))
         return bot.reply('Item "%s" not found!' % trigger.group(2))
-    return bot.reply('[Item %s] %s: %s [last_modified: %s]' % (obj.id, obj.item, obj.text, obj.modified))
+    obj = obj[0]
+    return bot.reply('[Item %s] %s' % (obj.item, obj.text))
 
 
 @commands(['add'])
@@ -80,12 +80,15 @@ def delete(bot, trigger):
     except ValueError:
         return bot.reply('Usage: .delete <item>')
 
-    start_db(bot.settings)
-    q = InfoItem.delete().where(InfoItem.item == item)
+    obj = InfoItem.objects.filter(item=item)
+    if not obj:
+        msg = 'Item %s not found so not deleted!' % item
+        bot.settings.log.info(msg)
+        return bot.reply(msg)
 
-    if q.execute():
+    if obj.delete():
         bot.settings.log.info('Requested item %s deleted!' % item)
         return bot.reply('Item %s deleted!' % item)
-
-    bot.settings.log.info('Item %s not found so not deleted!' % item)
-    return bot.reply('Item %s not found so not deleted!' % item)
+    else:
+        bot.settings.log.info('[ERROR] Requested item %s somehow not deleted!' % item)
+        return bot.reply('[ERROR] Item %s somehow not deleted!' % item)

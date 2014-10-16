@@ -371,8 +371,6 @@ class DjangoBot(irc.Bot):
     class Trigger(unicode):
         def __new__(cls, text, origin, bytes, match, event, args, self):
             s = unicode.__new__(cls, text)
-            user = BotUser.objects.filter(nick=origin.nick, host=origin.hostmask)
-
             s.sender = origin.sender
             s.hostmask = origin.hostmask
             s.user = origin.user
@@ -384,16 +382,14 @@ class DjangoBot(irc.Bot):
             s.groups = match.groups
             s.args = args
             s.host = origin.host
-
-            s.isop, s.isvoice, s.isbanned = False, False, False
-            s.user_object, s.registered, s.admin = False, False, True
-
+            s.admin = False
+            user = BotUser.objects.filter(nick=origin.nick)
             if user:
-                s.user_object, s.registered, s.admin = user[0], True, s.user_object.is_admin
-                if s.sender is not s.nick:  # no ops in PM
-                    s.isop = s.user_object.is_operator
-                    s.isvoice = s.user_object.is_voice
-                    s.isbanned = s.user_object.banned
+                user = user[0]
+                s.user_object = user
+                s.admin = user.is_staff or user.is_superuser
+            else:
+                s.user_object = False
             return s
 
     def call(self, func, origin, bot, trigger):

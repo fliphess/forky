@@ -1,1 +1,1 @@
-IRC Bot Account activation on {{ site.name }}
+[DjangoIrcBot] Complete your user registration on {{ site.name }}
