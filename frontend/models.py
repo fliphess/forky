@@ -18,9 +18,55 @@ class BotUser(AbstractUser):
     is_banned = models.BooleanField('banned', default=False)
     is_voice = models.BooleanField('voice', default=False)
     is_operator = models.BooleanField('operator', default=False)
+    is_login = models.BooleanField('login', default=False)
 
     registration_token = models.CharField('token', max_length=255, unique=True, db_index=True)
     registered = models.BooleanField('registered', default=False)
+
+    def renew_token(self):
+        self.registration_token = None
+        self.save()
+
+    def enable_web(self):
+        self.is_active = True
+        self.save()
+
+    def disable_web(self):
+        self.is_active = False
+        self.save()
+
+    def login_user(self):
+        self.is_login = True
+        self.save()
+
+    def logout_user(self):
+        self.is_login = False
+        self.save()
+
+    def register_user(self):
+        self.registered = True
+        self.is_active = True
+        self.save()
+
+    def enable_account(self, host):
+        self.is_active = True
+        self.registered = True
+        self.host = host
+        self.save()
+
+    def disable_account(self):
+        self.is_active = False
+        self.registered = False
+        self.host = 'A regex that does not match'
+        self.save()
+
+    def ban_user(self):
+        self.is_banned = True
+        self.disable_account()
+
+    def unban_user(self, host):
+        self.is_banned = False
+        self.enable_account(host)
 
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
         if self.nick is None or len(self.nick) == 0:

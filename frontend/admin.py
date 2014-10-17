@@ -19,7 +19,7 @@ class BotUserAdmin(UserAdmin):
         (_('IRC Info'), {'fields': ('nick', 'host', 'about')}),
         (_('Personal info'), {'fields': ('first_name', 'last_name', 'email')}),
         (_('OTP Token'), {'fields': ('registration_token',)}),
-        (_('IRC Perms'), {'fields': ('is_banned', 'is_voice', 'is_operator')}),
+        (_('IRC Perms'), {'fields': ('registered', 'is_login', 'is_banned', 'is_voice', 'is_operator')}),
         (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser', 'user_permissions')}),
         (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
     )
@@ -31,7 +31,7 @@ class BotUserAdmin(UserAdmin):
         }),
     )
     readonly_fields = ('registration_token', 'email')
-    list_display = ('username', 'email', 'first_name', 'last_name', 'is_staff', 'is_superuser', 'is_banned')
+    list_display = ('username', 'email', 'first_name', 'last_name', 'is_staff', 'is_superuser', 'is_banned', 'is_login')
     list_filter = ('is_staff', 'is_superuser', 'is_active', 'groups')
     search_fields = ('username', 'first_name', 'last_name', 'email')
     ordering = ('username',)

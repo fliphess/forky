@@ -39,7 +39,7 @@ edit control/settings.py
 
 ## User restrictions
 0: 'user'
-1: 'registered'
+1: 'registered and logged in'
 2: 'voice'
 3: 'operator'
 4: 'staff'
@@ -55,7 +55,8 @@ edit control/settings.py
 - [X] Token generation for IRC "login"
 - [X] Create user edit profile page for non admin users
 - [ ] control bot page (connect to socket)
-- [ ] live log 
+- [ ] live log for superusers (all events logged to db)
+- [ ] request a ban
 - [ ] send to channel/priv functionality (also msg oneself to change settings)
 - [ ] proper edit profile page with more then just a form
 - [ ] easy page 
@@ -67,6 +68,8 @@ edit control/settings.py
 - [X] about information module
 - [X] auto reload (all) module(s) functionality
 - [X] restrict modules to the corresponding user status
+- [X] login/register module
+- [ ] check if user is login or reply in restriction 
 - [ ] trigger module that updates seen data
 - [ ] .seen <user> module that gets the last seen data from database
 - [ ] quotes module 
@@ -77,6 +80,7 @@ edit control/settings.py
 - [ ] auto load module 
 - [ ] listener module that auto logout all parted/quitted/left
 - [ ] auto channel to +i mode
+- [ ] superuser module to request all data of a user, send in privmsg
 
 ### ORM
 - [X] adjust willie modules to use django orm and add to modules + initial_data.json
@@ -84,4 +88,4 @@ edit control/settings.py
 - [ ] Last seen field in user model
 - [ ] edit django settings module or store all non-django settings in database
 - [ ] channel modes in channel model
-- [ ] 
+- [ ] event model for historic overview 

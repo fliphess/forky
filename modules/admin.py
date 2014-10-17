@@ -2,6 +2,7 @@
 """
     admin.py - bot Admin Module
 """
+from django.core.urlresolvers import reverse
 from control.bot.decorators import commands, priority, example, restrict
 from frontend.models import Channel
 
@@ -12,6 +13,10 @@ from frontend.models import Channel
 def list_channels(bot, trigger):
     if trigger.sender.startswith('#'):
         return
+
+    if not trigger.user_object or not trigger.user_object.is_login or not trigger.user_object.registered:
+        return bot.msg(trigger.nick, 'Please login or register first at %s' % reverse("registration_register"))
+
     if trigger.admin:
         channels = [i.channel for i in Channel.objects.all()]
         return bot.reply('Channels are: %s' % ", ".join(channels))
@@ -24,11 +29,11 @@ def list_channels(bot, trigger):
 def add_channel(bot, trigger):
     """ Join the specified channel. This is an admin-only command.
     """
-    if trigger.sender.startswith('#'):
+    if trigger.sender.startswith('#') or not trigger.admin:
         return
 
-    if not trigger.admin:
-        return
+    if not trigger.user_object or not trigger.user_object.is_login or not trigger.user_object.registered:
+        return bot.msg(trigger.nick, 'Please login or register first at %s' % reverse("registration_register"))
 
     channel = trigger.group(3)
     key = trigger.group(4)
@@ -60,6 +65,9 @@ def remove_channel(bot, trigger):
     if trigger.sender.startswith('#') or not trigger.admin:
         return
 
+    if not trigger.user_object or not trigger.user_object.is_login or not trigger.user_object.registered:
+        return bot.msg(trigger.nick, 'Please login or register first at %s' % reverse("registration_register"))
+
     channel = trigger.group(3)
     if not channel or not channel.startswith('#'):
         return
@@ -80,6 +88,9 @@ def topic(bot, trigger):
     """
     if not trigger.admin:
         return
+
+    if not trigger.user_object or not trigger.user_object.is_login or not trigger.user_object.registered:
+        return bot.msg(trigger.nick, 'Please login or register first at %s' % reverse("registration_register"))
 
     channel = trigger.group(3)
     text = trigger.group(2)[1:]

@@ -1,3 +1,4 @@
+from django.core.urlresolvers import reverse
 from control.bot.decorators import example, priority, commands, restrict
 
 
@@ -10,6 +11,9 @@ def voice(bot, trigger):
     """
     if not trigger.admin:
         return bot.reply('You must be an admin to perform this operation')
+
+    if not trigger.user_object or not trigger.user_object.is_login or not trigger.user_object.registered:
+        return bot.msg(trigger.nick, 'Please login or register first at %s' % reverse("registration_register"))
 
     try:
         inputs = trigger.group(2).split(' ')
@@ -31,7 +35,7 @@ def voice(bot, trigger):
 
     if not nick:
         nick = trigger.nick
-    bot.settings.log.info('Giving voice on %s from %s' % (channel, nick))
+    bot.log.info('Giving voice on %s from %s' % (channel, nick))
     bot.write(['MODE %s +v %s' % (channel, nick)])
 
 
@@ -42,6 +46,9 @@ def voice(bot, trigger):
 def devoice(bot, trigger):
     """ Command to devoice users in a room. If no nick is given, bot will devoice the nick who sent the command
     """
+    if not trigger.user_object or not trigger.user_object.is_login or not trigger.user_object.registered:
+        return bot.msg(trigger.nick, 'Please login or register first at %s' % reverse("registration_register"))
+
     if not trigger.admin:
         return bot.reply('You must be an admin to perform this operation')
 
@@ -65,7 +72,7 @@ def devoice(bot, trigger):
 
     if not nick:
         nick = trigger.nick
-    bot.settings.log.info('Removing voice on %s from %s' % (channel, nick))
+    bot.log.info('Removing voice on %s from %s' % (channel, nick))
     bot.write(['MODE %s -v %s' % (channel, nick)])
 
 
@@ -79,6 +86,9 @@ def op(bot, trigger):
     """
     if not trigger.admin:
         return bot.reply('You must be an admin to perform this operation')
+
+    if not trigger.user_object or not trigger.user_object.is_login or not trigger.user_object.registered:
+        return bot.msg(trigger.nick, 'Please login or register first at %s' % reverse("registration_register"))
 
     try:
         inputs = trigger.group(2).split(' ')
@@ -101,7 +111,7 @@ def op(bot, trigger):
 
     if not nick:
         nick = trigger.nick
-    bot.settings.log.info('Giving ops on %s to %s' % (channel, nick))
+    bot.log.info('Giving ops on %s to %s' % (channel, nick))
     bot.write(['MODE %s +o %s' % (channel, nick)])
 
 
@@ -114,6 +124,9 @@ def deop(bot, trigger):
     """
     if not trigger.admin:
         return bot.reply('You must be an admin to perform this operation')
+
+    if not trigger.user_object or not trigger.user_object.is_login or not trigger.user_object.registered:
+        return bot.msg(trigger.nick, 'Please login or register first at %s' % reverse("registration_register"))
 
     try:
         inputs = trigger.group(2).split(' ')
@@ -135,6 +148,6 @@ def deop(bot, trigger):
 
     if not nick:
         nick = trigger.nick
-    bot.settings.log.info('Removing ops on %s from %s' % (channel, nick))
+    bot.log.info('Removing ops on %s from %s' % (channel, nick))
     bot.write(['MODE %s -o %s' % (channel, nick)])
 

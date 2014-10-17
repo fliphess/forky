@@ -4,6 +4,7 @@ admin.py - bot Admin Module
 
 """
 import re
+from django.core.urlresolvers import reverse
 
 from control.bot.decorators import commands, priority, restrict
 
@@ -43,6 +44,9 @@ def kick(bot, trigger):
     if not trigger.admin:
         return
 
+    if not trigger.user_object or not trigger.user_object.is_login or not trigger.user_object.registered:
+        return bot.msg(trigger.nick, 'Please login or register first at %s' % reverse("registration_register"))
+
     text = trigger.group().split()
     length = len(text)
     if length < 2:
@@ -63,7 +67,7 @@ def kick(bot, trigger):
     reason = ' '.join(text[reason_idx:])
 
     if nick != bot.settings.nick:
-        bot.settings.log.info('Kicking %s on channel %s' % (nick, channel))
+        bot.log.info('Kicking %s on channel %s' % (nick, channel))
         bot.write(['KICK', channel, nick, reason])
 
 
@@ -78,6 +82,9 @@ def ban(bot, trigger):
     if not trigger.admin:
         return
 
+    if not trigger.user_object or not trigger.user_object.is_login or not trigger.user_object.registered:
+        return bot.msg(trigger.nick, 'Please login or register first at %s' % reverse("registration_register"))
+
     text = trigger.group().split()
     length = len(text)
     if length < 2:
@@ -97,7 +104,7 @@ def ban(bot, trigger):
     if ban_mask == '':
         return
 
-    bot.settings.log.info('Banning %s from channel %s' % (ban_mask, channel))
+    bot.log.info('Banning %s from channel %s' % (ban_mask, channel))
     bot.write(['MODE %s +b %s' % (channel, ban_mask)])
 
 
@@ -111,6 +118,10 @@ def unban(bot, trigger):
     """
     if not trigger.admin:
         return
+
+    if not trigger.user_object or not trigger.user_object.is_login or not trigger.user_object.registered:
+        return bot.msg(trigger.nick, 'Please login or register first at %s' % reverse("registration_register"))
+
     text = trigger.group().split()
     length = len(text)
     if length < 2:
@@ -130,7 +141,7 @@ def unban(bot, trigger):
     if ban_mask == '':
         return
 
-    bot.settings.log.info('Removing ban for %s on channel %s' % (ban_mask, channel))
+    bot.log.info('Removing ban for %s on channel %s' % (ban_mask, channel))
     bot.write(['MODE %s -b %s' % (channel, ban_mask)])
 
 
@@ -143,6 +154,10 @@ def kickban(bot, trigger):
     """
     if not trigger.admin:
        return
+
+    if not trigger.user_object or not trigger.user_object.is_login or not trigger.user_object.registered:
+        return bot.msg(trigger.nick, 'Please login or register first at %s' % reverse("registration_register"))
+
     text = trigger.group().split()
     length = len(text)
 
@@ -169,10 +184,10 @@ def kickban(bot, trigger):
     if mask == '':
         return
 
-    bot.settings.log.info('Setting ban for %s on channel %s' % (nick, channel))
+    bot.log.info('Setting ban for %s on channel %s' % (nick, channel))
     bot.write(['MODE %s +b %s' % (channel, mask)])
 
-    bot.settings.log.info('Kicking %s from channel %s' % (nick, channel))
+    bot.log.info('Kicking %s from channel %s' % (nick, channel))
     bot.write(['KICK %s %s  : %s' % (channel, nick, reason)])
 
 

@@ -36,10 +36,11 @@ def me(bot, trigger):
     Send an ACTION (/me) to a given channel or nick. Can only be done in privmsg
     by an admin.
     """
-    if trigger.sender.startswith('#'):
+    if trigger.sender.startswith('#') or not trigger.admin:
         return
-    if not trigger.admin:
-        return
+
+    if not trigger.user_object or not trigger.user_object.is_login or not trigger.user_object.registered:
+        return bot.msg(trigger.nick, 'Please login or register first at %s' % reverse("registration_register"))
 
     channel, _sep, action = trigger.group(2).partition(' ')
     action = action.strip()
@@ -57,6 +58,9 @@ def me(bot, trigger):
 def write_raw(bot, trigger):
     if not trigger.admin:
         return
+
+    if not trigger.user_object or not trigger.user_object.is_login or not trigger.user_object.registered:
+        return bot.msg(trigger.nick, 'Please login or register first at %s' % reverse("registration_register"))
 
     txt = trigger.bytes[7:]
     txt = txt.encode('utf-8')

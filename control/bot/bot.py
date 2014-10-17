@@ -32,7 +32,6 @@ from django.contrib.auth import get_user_model
 from frontend.models import Module
 from tools import PriorityQueue, Released, get_command_regexp, BotMemory, user_status
 
-
 BotUser = get_user_model()
 
 
@@ -416,7 +415,6 @@ class DjangoBot(irc.Bot):
                 func.restrict,
                 trigger.status))
             return
-
         try:
             exit_code = func(bot, trigger)
         except Exception:
@@ -425,9 +423,6 @@ class DjangoBot(irc.Bot):
 
         if exit_code != irc.NOLIMIT:
             self.times[nick][func] = time.time()
-
-    def limit(self, origin, func):
-        return False
 
     def dispatch(self, origin, text, args):
         event, args = args[0], args[1:]
@@ -444,8 +439,6 @@ class DjangoBot(irc.Bot):
 
                 for func in funcs:
                     if event != func.event:
-                        continue
-                    if self.limit(origin, func):
                         continue
                     if func.thread:
                         targs = (func, origin, wrapper, trigger)

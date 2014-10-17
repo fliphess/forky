@@ -22,6 +22,7 @@ def doc(bot, trigger):
         if bot.doc[name][1]:
             bot.reply('e.g. ' + bot.doc[name][1])
 
+
 @commands('commands', 'help')
 @priority('low')
 def commands(bot, trigger):

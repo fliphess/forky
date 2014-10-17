@@ -193,7 +193,7 @@ def user_status(user):
         status = 3
     elif user.is_voice:
         status = 2
-    elif user.registered:
+    elif user.registered and user.is_login:
         status = 1
     else:
         status = 0
