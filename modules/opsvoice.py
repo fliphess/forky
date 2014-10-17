@@ -1,6 +1,7 @@
-from control.bot.decorators import example, priority, commands
+from control.bot.decorators import example, priority, commands, restrict
 
 
+@restrict(3)
 @commands('voice')
 @priority('low')
 @example('.voice #example or .voice #example nick')
@@ -34,6 +35,7 @@ def voice(bot, trigger):
     bot.write(['MODE %s +v %s' % (channel, nick)])
 
 
+@restrict(3)
 @commands('devoice')
 @priority('low')
 @example('.devoice #example or .devoice #example nick')
@@ -67,6 +69,8 @@ def devoice(bot, trigger):
     bot.write(['MODE %s -v %s' % (channel, nick)])
 
 
+
+@restrict(3)
 @commands('op')
 @priority('low')
 @example('.op #example or .op #example nick')
@@ -101,6 +105,7 @@ def op(bot, trigger):
     bot.write(['MODE %s +o %s' % (channel, nick)])
 
 
+@restrict(3)
 @commands('deop')
 @priority('low')
 @example('.deop #example or .deop #example nick')

@@ -211,3 +211,19 @@ def example(value):
         function.example = value
         return function
     return add_attribute
+
+
+def restrict(value):
+    """Decorator. Equivalent to func.restrict = value.
+
+    Args:
+        value: Priority can be one of ('all', 'user', 'registered', 'staff', 'superuser')
+
+        Defaults to user.
+
+    Restrict allows you to control which users are allowed to use the functionality your module brings.
+    """
+    def add_attribute(function):
+        function.restrict = value
+        return function
+    return add_attribute

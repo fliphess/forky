@@ -2,10 +2,10 @@
 """
     admin.py - bot Admin Module
 """
-from control.bot.decorators import commands, priority, example
+from control.bot.decorators import commands, priority, example, restrict
 from frontend.models import Channel
 
-
+@restrict(1)
 @commands('channels', 'list_channels')
 @priority('low')
 @example('.list_channels or .channels')
@@ -17,6 +17,7 @@ def list_channels(bot, trigger):
         return bot.reply('Channels are: %s' % ", ".join(channels))
 
 
+@restrict(3)
 @commands('add_channel', 'join')
 @priority('low')
 @example('.add_channel #example')
@@ -49,6 +50,7 @@ def add_channel(bot, trigger):
     bot.reply('Added and joined channel %s!' % channel)
 
 
+@restrict(3)
 @commands('remove_channel', 'part')
 @priority('low')
 @example('.remove_channel #example')
@@ -69,6 +71,7 @@ def remove_channel(bot, trigger):
     bot.write('PART', channel)
 
 
+@restrict(2)
 @commands('topic')
 @priority('low')
 def topic(bot, trigger):

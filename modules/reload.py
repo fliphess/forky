@@ -6,7 +6,7 @@ from control.bot.decorators import commands, priority, thread
 from frontend.models import Module
 
 
-@commands(['reload'])
+@commands('reload')
 @priority('low')
 @thread(False)
 def f_reload(bot, trigger):

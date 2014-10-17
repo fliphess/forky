@@ -1,8 +1,8 @@
-from control.bot.decorators import example, priority, commands
+from control.bot.decorators import example, priority, commands, restrict
 from frontend.models import InfoItem
 
-
-@commands(['info'])
+@restrict(1)
+@commands('info')
 @priority('low')
 @example('.info <item>')
 def info(bot, trigger):
@@ -19,8 +19,8 @@ def info(bot, trigger):
     obj = obj[0]
     return bot.reply('[Item %s] %s' % (obj.item, obj.text))
 
-
-@commands(['add'])
+@restrict(1)
+@commands('add')
 @priority('low')
 @example('.add <item> <text>')
 def add(bot, trigger):
@@ -48,7 +48,8 @@ def add(bot, trigger):
         return bot.reply('Item %s added!' % item)
 
 
-@commands(['update'])
+@restrict(1)
+@commands('update')
 @priority('low')
 @example('.update <item> <text>')
 def update(bot, trigger):
@@ -71,7 +72,8 @@ def update(bot, trigger):
     return bot.reply('Item %s cupdated!' % item)
 
 
-@commands(['delete'])
+@restrict(1)
+@commands('delete')
 @priority('low')
 @example('.delete <item>')
 def delete(bot, trigger):

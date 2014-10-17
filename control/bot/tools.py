@@ -173,3 +173,28 @@ class BotMemory(dict):
     def unlock(self):
         """ Release the write lock """
         return self.lock.release()
+
+
+def user_status(user):
+    """ Determine which status the user has.
+    This is a transformation from a registered role to an int,
+    so we can do comparison before running
+
+    :param user:    BotUser object
+    :return:        user status
+    """
+    if not user:
+        return 0
+    if user.is_superuser:
+        status = 5
+    elif user.is_staff:
+        status = 4
+    elif user.is_operator:
+        status = 3
+    elif user.is_voice:
+        status = 2
+    elif user.registered:
+        status = 1
+    else:
+        status = 0
+    return status

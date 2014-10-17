@@ -2,7 +2,7 @@
 """
 help.py - forky Information Module
 """
-from control.bot.decorators import priority, example, rule, commands
+from control.bot.decorators import priority, example, rule, commands, restrict
 
 
 @rule('(?i)$nick[,:]\s(?:help|doc) +([A-Za-z]+)(?:\?+)?$')
@@ -21,7 +21,6 @@ def doc(bot, trigger):
         bot.reply(bot.doc[name][0])
         if bot.doc[name][1]:
             bot.reply('e.g. ' + bot.doc[name][1])
-
 
 @commands('commands', 'help')
 @priority('low')

@@ -3,11 +3,11 @@
 msg.py - bot messaging Module
 
 """
-from control.bot.decorators import priority, rule, commands, thread, example
+from control.bot.decorators import priority, rule, commands, thread, example, restrict
 
 char_replace = {r'\x01': chr(1), r'\x02': chr(2), r'\x03': chr(3)}
 
-
+@restrict(1)
 @commands('msg')
 @priority('low')
 @example('.msg #YourPants Does anyone else smell neurotoxin?')
@@ -28,6 +28,7 @@ def msg(bot, trigger):
     bot.msg(channel, message)
 
 
+@restrict(1)
 @commands('me')
 @priority('low')
 def me(bot, trigger):
@@ -49,6 +50,7 @@ def me(bot, trigger):
     bot.msg(channel, msg)
 
 
+@restrict(1)
 @commands('write')
 @priority('high')
 @thread(False)
@@ -75,6 +77,7 @@ def write_raw(bot, trigger):
         bot.say('Message sent to server.')
 
 
+@restrict(0)
 @rule(r'($nickname!)')
 @priority('high')
 @example('$nickname!')
@@ -84,6 +87,7 @@ def respond(bot, trigger):
     bot.say('Hi %s!' % trigger.nick)
 
 
+@restrict(0)
 @rule(r'(?i)$nickname[:,]?\sping')
 @priority('high')
 @example('$nickname: ping!')

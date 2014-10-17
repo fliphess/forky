@@ -1,10 +1,11 @@
 from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse
-from control.bot.decorators import example, priority, commands
+from control.bot.decorators import example, priority, commands, restrict
 
 BotUser = get_user_model()
 
-@commands(['about'])
+@restrict(1)
+@commands('about')
 @priority('low')
 @example('.about <nick>')
 def about(bot, trigger):
@@ -16,7 +17,8 @@ def about(bot, trigger):
     return bot.reply('[About %s]: %s' % (user.username, user.about))
 
 
-@commands(['about_add'])
+@restrict(1)
+@commands('about_add')
 @priority('low')
 @example('.about_add <nick> <text>')
 def about_add(bot, trigger):
@@ -45,7 +47,8 @@ def about_add(bot, trigger):
     return bot.reply(msg)
 
 
-@commands(['about_update'])
+@restrict(1)
+@commands('about_update')
 @priority('low')
 @example('.about_update <nick> <text>')
 def about_update(bot, trigger):

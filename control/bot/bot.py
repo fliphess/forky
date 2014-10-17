@@ -29,9 +29,8 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "control.settings")
 django_setup()
 
 from django.contrib.auth import get_user_model
-from frontend.exceptions import BotException
 from frontend.models import Module
-from tools import PriorityQueue, Released, get_command_regexp, BotMemory
+from tools import PriorityQueue, Released, get_command_regexp, BotMemory, user_status
 
 
 BotUser = get_user_model()
@@ -255,7 +254,7 @@ class DjangoBot(irc.Bot):
         table = []
 
         def bind(self, priority, regexp, func):
-            table.append([func.__name__.encode('ascii'), "LOADED", regexp.pattern.encode('ascii'), priority])
+            table.append([func.__name__.encode('ascii'), "LOADED", func.restrict, priority, regexp.pattern.encode('ascii')])
 
             if not hasattr(func, 'name'):
                 func.name = func.__name__
@@ -279,6 +278,9 @@ class DjangoBot(irc.Bot):
         for func in self.callables:
             if not hasattr(func, 'priority'):
                 func.priority = 'medium'
+
+            if not hasattr(func, 'restrict'):
+                func.restrict = 0
 
             if not hasattr(func, 'thread'):
                 func.thread = True
@@ -345,7 +347,7 @@ class DjangoBot(irc.Bot):
                     job = DjangoBot.Job(interval, func)
                     self.scheduler.add_job(job)
         if table:
-            self.log.info("\n" + tabulate(table, headers=["Name", "Status", "Regex", "Priority"], tablefmt='grid'))
+            self.log.info("\n" + tabulate(table, headers=["Name", "Status", "Restriction", "Priority", "Regex"], tablefmt='grid'))
 
     class BotWrapper(object):
         def __init__(self, willie, origin):
@@ -383,13 +385,15 @@ class DjangoBot(irc.Bot):
             s.args = args
             s.host = origin.host
             s.admin = False
+            s.user_object = False
+            s.status = 0
+
             user = BotUser.objects.filter(nick=origin.nick)
             if user:
                 user = user[0]
                 s.user_object = user
                 s.admin = user.is_staff or user.is_superuser
-            else:
-                s.user_object = False
+                s.status = user_status(user)
             return s
 
     def call(self, func, origin, bot, trigger):
@@ -400,13 +404,22 @@ class DjangoBot(irc.Bot):
             timediff = time.time() - self.times[nick][func]
             if timediff < func.rate:
                 self.times[nick][func] = time.time()
-                self.log.warn("%s prevented from using %s in %s: %d < %d" % (
+                self.log.warn("nick %s through rate limit prevented from using %s in %s: %d < %d" % (
                     trigger.nick, func.__name__, trigger.sender, timediff, func.rate))
                 return
 
+        if not func.restrict <= trigger.status:
+            self.log.warn("User %s not allowed using %s in %s: %d <= %d" % (
+                trigger.nick,
+                func.__name__,
+                trigger.sender,
+                func.restrict,
+                trigger.status))
+            return
+
         try:
             exit_code = func(bot, trigger)
-        except BotException:
+        except Exception:
             exit_code = None
             self.error(origin, trigger)
 
@@ -428,8 +441,6 @@ class DjangoBot(irc.Bot):
                 if not match:
                     continue
                 trigger = self.Trigger(text, origin, text, match, event, args, self)
-
-                # TODO - If in blocklist: ignore
 
                 for func in funcs:
                     if event != func.event:

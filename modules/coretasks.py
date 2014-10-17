@@ -1,10 +1,9 @@
 # coding=utf-8
 from django.conf import settings
 from django.contrib.auth import get_user_model
-from control.bot.decorators import event, rule, priority, commands
+from control.bot.decorators import event, rule, priority, commands, restrict
 from frontend.models import Channel
 BotUser = get_user_model()
-
 
 @event('251')
 @rule('.*')
@@ -29,7 +28,7 @@ def startup(bot, trigger):
         bot.log.info('Rejoining channel %s' % channel)
         bot.write(('JOIN', channel))
 
-
+@restrict(1)
 @commands('listops')
 def list_ops(bot, trigger):
     """ List channel operators in the given channel, or current channel if none is given.
@@ -40,7 +39,7 @@ def list_ops(bot, trigger):
     else:
         bot.say('I have %s registered operators in my database: %s' % (len(ops), ", ".join(ops)))
 
-
+@restrict(1)
 @commands('listvoices')
 def list_voices(bot, trigger):
     """ List users with voice in the given channel, or current channel if none is given.

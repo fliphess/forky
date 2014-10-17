@@ -5,7 +5,7 @@ admin.py - bot Admin Module
 """
 import re
 
-from control.bot.decorators import commands, priority
+from control.bot.decorators import commands, priority, restrict
 
 
 auth_list = []
@@ -36,6 +36,7 @@ def configure_host_mask(mask):
     return ''
 
 
+@restrict(3)
 @commands('kick')
 @priority('high')
 def kick(bot, trigger):
@@ -65,6 +66,8 @@ def kick(bot, trigger):
         bot.settings.log.info('Kicking %s on channel %s' % (nick, channel))
         bot.write(['KICK', channel, nick, reason])
 
+
+@restrict(3)
 @commands('ban')
 @priority('high')
 def ban(bot, trigger):
@@ -97,6 +100,8 @@ def ban(bot, trigger):
     bot.settings.log.info('Banning %s from channel %s' % (ban_mask, channel))
     bot.write(['MODE %s +b %s' % (channel, ban_mask)])
 
+
+@restrict(3)
 @commands('unban')
 @priority('high')
 def unban(bot, trigger):
@@ -129,7 +134,9 @@ def unban(bot, trigger):
     bot.write(['MODE %s -b %s' % (channel, ban_mask)])
 
 
+@restrict(3)
 @commands('kickban', 'kb')
+@priority('high')
 def kickban(bot, trigger):
     """ This gives admins the ability to kickban a user.
         The bot must be a Channel Operator for this command to work .kickban [#chan] user1 user!*@* get out of here

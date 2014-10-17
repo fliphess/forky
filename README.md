@@ -37,6 +37,15 @@ edit control/settings.py
 4. you are now logged in!
 
 
+## User restrictions
+0: 'user'
+1: 'registered'
+2: 'voice'
+3: 'operator'
+4: 'staff'
+5: 'superuser'
+
+
 ## TODO
  
 ### Django frontend
@@ -55,15 +64,17 @@ edit control/settings.py
 
 ### Bot
 - [X] .meet <user> module to start the registration process
+- [X] about information module
+- [X] auto reload (all) module(s) functionality
+- [X] restrict modules to the corresponding user status
 - [ ] trigger module that updates seen data
 - [ ] .seen <user> module that gets the last seen data from database
-- [X] about information module
 - [ ] quotes module 
 - [ ] auto ban on join
-- [ ] superuser task to keep the bot running
+- [ ] hard exit on disconnection
+- [ ] supervisor task to keep the bot running
 - [ ] socket listener to start/stop/reload the bot
 - [ ] auto load module 
-- [X] auto reload (all) module(s) functionality
 - [ ] listener module that auto logout all parted/quitted/left
 - [ ] auto channel to +i mode
 
@@ -72,3 +83,5 @@ edit control/settings.py
 - [X] Quotes Model
 - [ ] Last seen field in user model
 - [ ] edit django settings module or store all non-django settings in database
+- [ ] channel modes in channel model
+- [ ] 
