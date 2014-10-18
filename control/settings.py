@@ -80,6 +80,10 @@ DATABASES = {
     }
 }
 
+# LISTENER SETTINGS
+LISTENER_SOCKET = '/var/run/ircbot.sock'
+LISTENER_PID = '/var/run/ircbot.pid'
+
 # BOT SETTINGS
 BOT_NICK = 'FlipperBot'
 BOT_IDENT = 'botje'
