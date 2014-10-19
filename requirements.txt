@@ -1,5 +1,9 @@
 Django==1.7
 PyYAML==3.11
+SimpleAES==1.0
 argparse==1.2.1
 gnureadline==6.3.3
+ipython==2.3.0
+pycrypto==2.6.1
 tabulate==0.7.3
+wsgiref==0.1.2
