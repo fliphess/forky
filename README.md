@@ -68,6 +68,7 @@ edit control/settings.py
 - [X] adjust user registration to notify token through private message OR email
 - [X] Token generation for IRC "login"
 - [X] Create user edit profile page for non admin users
+- [X] Write socket client package
 - [ ] control bot page (connect to socket)
 - [ ] live log for superusers (all events logged to db)
 - [ ] request a ban
@@ -76,7 +77,6 @@ edit control/settings.py
 - [ ] easy page 
 - [ ] api view to send data to channel using registration token or user/pass
 - [ ] socket listener buttons in profile
-- [X] Write socket client package
 
 ### Bot
 - [X] .meet <user> module to start the registration process
@@ -87,6 +87,7 @@ edit control/settings.py
 - [X] socket listener to send raw irc to server
 - [X] check if user is login or reply in restriction 
 - [X] rewrite decrypt / socket server thing to log incoming data for each user
+
 - [ ] trigger module that updates seen data
 - [ ] .seen <user> module that gets the last seen data from database
 - [ ] quotes module 
@@ -98,7 +99,7 @@ edit control/settings.py
 - [ ] auto channel to +i mode
 - [ ] superuser module to request all data of a user, send in privmsg
 - [ ] fix endless reload loop in multiple threads while func.thread(False)
-- [ ] socket listener control options to start/stop/reload the bot
+- [ ] socket listener control protocol + options to start/stop/reload the bot
 
 ### ORM
 - [X] adjust willie modules to use django orm and add to modules + initial_data.json
