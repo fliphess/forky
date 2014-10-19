@@ -3,6 +3,7 @@
 msg.py - bot messaging Module
 
 """
+from django.core.urlresolvers import reverse
 from control.bot.decorators import priority, rule, commands, thread, example, restrict
 
 char_replace = {r'\x01': chr(1), r'\x02': chr(2), r'\x03': chr(3)}

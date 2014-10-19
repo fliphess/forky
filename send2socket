@@ -1,0 +1,64 @@
+#!/usr/bin/env python
+"""
+forky - An IRC Bot
+
+"""
+import argparse
+import os
+import sys
+import time
+from control.socket_handler.client import SocketSender
+from frontend.exceptions import SocketListenerError
+
+
+sys.path.append(".")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "control.settings")
+
+from django import setup as django_setup
+django_setup()
+
+from django.conf import settings
+
+
+def parse_options():
+    p = argparse.ArgumentParser(description="Django IRC Bot Send2Socket")
+    p.add_argument('-s', '--string',
+                   dest='string',
+                   required=True,
+                   type=str,
+                   help='The data to send')
+    return p.parse_args()
+
+
+def main():
+    arguments = parse_options()
+
+    username = os.environ.get('DJANGO_IRC_USERNAME', None)
+    token = os.environ.get('DJANGO_IRC_TOKEN', None)
+    if not username or not token:
+        print "Please set DJANGO_IRC_USERNAME and DJANGO_IRC_TOKEN in your environment variables " \
+              "containing username and password"
+        sys.exit(1)
+
+    a = SocketSender(user=username, token=token, unix_socket=settings.LISTENER_SOCKET)
+
+    # Connect
+    result = False
+    while not result:
+        try:
+            success = a.connect()
+            if success:
+                result = True
+        except SocketListenerError as e:
+            print "Failed to connect to socket: %s" % e
+            print "Retrying!"
+            time.sleep(2)
+    print "Connected to socket %s" % settings.LISTENER_SOCKET
+
+    print "Sending command %s" % arguments.string
+    a.send(arguments.string)
+    a.close()
+    print "Done"
+
+if __name__ == '__main__':
+    main()
