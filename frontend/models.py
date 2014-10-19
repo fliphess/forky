@@ -109,3 +109,22 @@ class Ban(models.Model):
     nick = models.CharField('nick', max_length=100, unique=True)
     host = models.CharField('host', max_length=100)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, unique=True)
+
+
+class SocketUser(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, unique=True)
+    token = models.CharField('token', max_length=255, unique=True, db_index=True)
+    is_active = models.BooleanField('active', default=False)
+
+    def enable_user(self, host):
+        self.is_active = True
+        self.save()
+
+    def disable_user(self):
+        self.is_active = False
+        self.save()
+
+    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+        if self.token is None or len(self.token) == 0:
+            self.token = rand_key(settings.REGISTRATION_TOKEN_SIZE)
+        models.Model.save(self, force_insert, force_update, using, update_fields)

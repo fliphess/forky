@@ -1,16 +1,12 @@
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-# Executor
-REMOTE_EXECUTOR = os.path.join(BASE_DIR, 'remote_executor.py')
-
 # LOGGING
 LOG_FORMAT = "%(asctime)s %(name)s %(levelname)-7s %(message)s"
 LOG_PREFIX = 'Django Bot'
 LOG_FILE = '/tmp/some_log_file.log'
 LOG_EXCEPTIONS = '/tmp/exceptions.log'
 LOG_VERBOSITY = 3
-
 
 # LOGIN
 LOGIN_URL = '/login'
@@ -24,7 +20,6 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-
 DEBUG = True
 DEVELOPMENT = False
 ALLOWED_HOSTS = []
@@ -33,16 +28,13 @@ SECRET_KEY = '5rgj4(l8a*v@gb_g4ilg!7)!dpkv%0uj7ldsav+zi62n9(o5rs'
 ROOT_URLCONF = 'control.urls'
 WSGI_APPLICATION = 'control.wsgi.application'
 
-
 # STATIC
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'html/static'),)
 
-
 # TEMPLATES
 TEMPLATE_DEBUG = True
 TEMPLATE_DIRS = (os.path.join(BASE_DIR, 'html/templates'),)
-
 
 # APPS
 INSTALLED_APPS = (
@@ -59,7 +51,6 @@ INSTALLED_APPS = (
 
 # AUTH
 AUTH_USER_MODEL = 'frontend.BotUser'
-
 
 # MIDDLEWARE
 MIDDLEWARE_CLASSES = (
@@ -107,8 +98,8 @@ REGISTRATION_OPEN=True
 ACCOUNT_ACTIVATION_DAYS=1
 EMAIL_HOST='localhost'
 EMAIL_PORT=1025
-EMAIL_HOST_USER=None #'username'
-EMAIL_HOST_PASSWORD=None #'password'
+EMAIL_HOST_USER=None        # 'username'
+EMAIL_HOST_PASSWORD=None    # 'password'
 
 EMAIL_BAD_DOMAIN_DB = 'db/bad_domain_list.db'
 with open(EMAIL_BAD_DOMAIN_DB) as l:

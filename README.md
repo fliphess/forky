@@ -67,7 +67,7 @@ input in json:
     "destination": "['the', 'channels', 'or', 'nicks', 'to', 'send', 'to']", "message": "message to send", 
 
 
-## TODO
+## Work in Progress:
  
 ### Django frontend
 
@@ -103,6 +103,7 @@ input in json:
 - [ ] listener module that auto logout all parted/quitted/left
 - [ ] auto channel to +i mode
 - [ ] superuser module to request all data of a user, send in privmsg
+- [ ] fix endless reload loop in multiple threads while func.thread(False)
 
 ### ORM
 - [X] adjust willie modules to use django orm and add to modules + initial_data.json
