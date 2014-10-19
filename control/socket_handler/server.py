@@ -1,23 +1,23 @@
+from base64 import b64decode
 import os
 import socket
+
 from control.bot.log import logger
 from frontend.exceptions import SocketListenerError
-from socket_handler.decrypt import DeCryptInput, DeCryptException
+from control.socket_handler.decrypt import AuthDecrypt, DeCryptException
 
 
-class SocketHandler(object):
-    def __init__(self, unix_socket='/var/run/socket_listener.sock', pidfile='/var/run/socket_listener.pid'):
+class SocketServer(object):
+    def __init__(self, unix_socket='/var/run/socket_listener.sock'):
         self.socket_file = unix_socket
-        self.pid_file = pidfile
         self.log = logger()
         self.socket = None
 
     def bind(self):
         """ Server side bind() is used to bind to a socket
         """
-        if os.path.exists(self.pid_file):
-            raise SocketListenerError('Pidfile %s already in place! Please kill other instance first' % self.pid_file)
-
+        if os.path.exists(self.socket_file):
+            os.remove(self.socket_file)
         try:
             self.socket = socket.socket(socket.AF_UNIX, socket.SOCK_DGRAM)
             self.socket.bind(self.socket_file)
@@ -35,16 +35,18 @@ class SocketHandler(object):
             input_data = self.socket.recv(1024)
             if not input_data:
                 continue
+
             try:
-                d = DeCryptInput(data=input_data)
-                data = d.decrypt()
-                self.log.info('[SOCKET LISTENER]: %s' % data)
-            except DeCryptException as e:
-                self.log.info('Error decrypting incoming data from %s: %s' % (self.socket_file, e))
+                user, string = b64decode(input_data).split(':')
+            except (ValueError, TypeError):
+                self.log.warn('Bad data! Failed to get user and input data from b64 string')
                 continue
 
-            if data.startswith("QUIT"):
-                self.log.info('[SOCKET LISTENER] Remotely closed the listener thread')
-                self.close()
-                raise SocketListenerError('Socket was closed by user')
+            try:
+                d = AuthDecrypt(data=string, user=user)
+                data = d.decrypt()
+                self.log.info('[SOCKET LISTENER] %s: %s' % (user, data))
+            except DeCryptException as e:
+                self.log.info('Error decrypting incoming data from %s: %s' % (user, e))
+                continue
             yield data

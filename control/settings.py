@@ -72,8 +72,7 @@ DATABASES = {
 }
 
 # LISTENER SETTINGS
-LISTENER_SOCKET = '/var/run/ircbot.sock'
-LISTENER_PID = '/var/run/ircbot.pid'
+LISTENER_SOCKET = '/tmp/ircbot.sock'
 
 # BOT SETTINGS
 BOT_NICK = 'FlipperBot'

@@ -59,13 +59,6 @@ edit control/settings.py
 4: 'staff'
 5: 'superuser'
 
-## Socket listener input:
-Quit socket listener: "QUIT SOCKET LISTENER"
-
-input in json: 
-{
-    "destination": "['the', 'channels', 'or', 'nicks', 'to', 'send', 'to']", "message": "message to send", 
-
 
 ## Work in Progress:
  
@@ -83,7 +76,7 @@ input in json:
 - [ ] easy page 
 - [ ] api view to send data to channel using registration token or user/pass
 - [ ] socket listener buttons in profile
-- [ ] Write socket client package
+- [X] Write socket client package
 
 ### Bot
 - [X] .meet <user> module to start the registration process
@@ -91,19 +84,21 @@ input in json:
 - [X] auto reload (all) module(s) functionality
 - [X] restrict modules to the corresponding user status
 - [X] login/register module
-- [ ] check if user is login or reply in restriction 
+- [X] socket listener to send raw irc to server
+- [X] check if user is login or reply in restriction 
+- [X] rewrite decrypt / socket server thing to log incoming data for each user
 - [ ] trigger module that updates seen data
 - [ ] .seen <user> module that gets the last seen data from database
 - [ ] quotes module 
 - [ ] auto ban on join
 - [ ] hard exit on disconnection
 - [ ] supervisor task to keep the bot running
-- [ ] socket listener to start/stop/reload the bot
 - [ ] auto load module 
 - [ ] listener module that auto logout all parted/quitted/left
 - [ ] auto channel to +i mode
 - [ ] superuser module to request all data of a user, send in privmsg
 - [ ] fix endless reload loop in multiple threads while func.thread(False)
+- [ ] socket listener control options to start/stop/reload the bot
 
 ### ORM
 - [X] adjust willie modules to use django orm and add to modules + initial_data.json

@@ -1,7 +1,8 @@
 import os
 import socket
+
 from frontend.exceptions import SocketSenderError, SocketListenerError
-from send_2_socket.encrypt import EnCryptInput
+from control.socket_handler.encrypt import AuthCrypt
 
 
 class SocketSender(object):
@@ -28,14 +29,10 @@ class SocketSender(object):
         return self.socket.close()
 
     def send(self, string):
-        c = EnCryptInput(string=string, user=self.user)
+        c = AuthCrypt(string=string, user=self.user)
         output = c.encrypt(token=self.token)
         try:
             self.socket.send(output)
         except socket.error as e:
             raise SocketSenderError('Failed to send to socket %s: %s' % (self.socket_file, e))
         return True
-
-
-
-

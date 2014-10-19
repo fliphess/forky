@@ -6,7 +6,7 @@ class EnCryptException(Exception):
     pass
 
 
-class EnCryptInput(object):
+class AuthCrypt(object):
     def __init__(self, string, user):
         self.user = user
         self.string = string
