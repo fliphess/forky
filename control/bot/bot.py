@@ -253,7 +253,12 @@ class DjangoBot(irc.Bot):
         table = []
 
         def bind(self, priority, regexp, func):
-            table.append([func.__name__.encode('ascii'), "LOADED", func.restrict, priority, regexp.pattern.encode('ascii')])
+            table.append([
+                func.__name__.encode('ascii'),
+                "LOADED",
+                func.restrict,
+                priority,
+                regexp.pattern.encode('ascii')])
 
             if not hasattr(func, 'name'):
                 func.name = func.__name__

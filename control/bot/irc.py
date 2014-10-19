@@ -93,6 +93,7 @@ class Bot(asynchat.async_chat):
             else:
                 temp = u' '.join(args)[:510] + '\r\n'
             self.send(temp.encode('utf-8'))
+
             self.log.debug(temp.encode('utf-8'))
         finally:
             self.writing_lock.release()
