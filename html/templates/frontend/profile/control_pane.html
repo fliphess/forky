@@ -9,12 +9,15 @@
       <div class="row">
 
          <div class="btn-group pull-left">
+
           {% if user.is_voice %}
           <a data-original-title="Broadcast Message" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary"><i class="fa fa-unlock"></i> get voice</a>
           {% endif %}
+
           {% if user.is_operator %}
-          <a data-original-title="Broadcast Message" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary"><i class="fa fa-gavel"></i> get ops</a>
+              {% include "frontend/modals/ops.html" %}
           {% endif %}
+
            <a data-original-title="Broadcast Message" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary"><i class="fa fa-envelope-o"></i> send msg</a>
            <a data-original-title="Broadcast Message" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary"><i class="fa fa-ban"></i> Request a ban</a>
          </div>

@@ -50,14 +50,6 @@ class BotUser(AbstractUser):
         self.registered = True
         self.save()
 
-    def ban_user(self):
-        self.is_banned = True
-        self.disable_account()
-
-    def unban_user(self, host):
-        self.is_banned = False
-        self.enable_account(host)
-
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
         if self.nick is None or len(self.nick) == 0:
             self.nick = '%s%s_%s' % (self.first_name.title() or 'None', self.last_name.title() or 'None', rand_key(4))
