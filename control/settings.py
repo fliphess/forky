@@ -73,6 +73,11 @@ DATABASES = {
 
 # LISTENER SETTINGS
 LISTENER_SOCKET = '/tmp/ircbot.sock'
+SOCKET_COMMANDS = {
+    "give_ops": "MODE %s +o %s",
+    "give_voice": "MODE %s +v %s",
+    "send_msg": "PRIVMSG %s :%s",
+}
 
 # BOT SETTINGS
 BOT_NICK = 'FlipperBot'
@@ -103,3 +108,5 @@ EMAIL_HOST_PASSWORD=None    # 'password'
 EMAIL_BAD_DOMAIN_DB = 'db/bad_domain_list.db'
 with open(EMAIL_BAD_DOMAIN_DB) as l:
     EMAIL_BAD_DOMAIN_LIST = [i.strip() for i in l.readlines() if i and not i.startswith("#")]
+
+

@@ -169,5 +169,14 @@
   },
   "model": "frontend.channel",
   "pk": 2
+},
+{
+  "fields": {
+    "token": "mc3nT8TEzlZvWuk0UP5zYr47MtrdxhfkE2V2hJVbqUPT8Pp5M0h9IzTZ86Xm",
+    "is_active": true,
+    "user": 1
+  },
+  "model": "frontend.socketuser",
+  "pk": 1
 }
 ]

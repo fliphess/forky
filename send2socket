@@ -8,7 +8,7 @@ import os
 import sys
 import time
 from control.socket_handler.client import SocketSender
-from frontend.exceptions import SocketListenerError
+from control.socket_handler.exceptions import SocketListenerError
 
 
 sys.path.append(".")
@@ -53,6 +53,7 @@ def main():
             print "Failed to connect to socket: %s" % e
             print "Retrying!"
             time.sleep(2)
+
     print "Connected to socket %s" % settings.LISTENER_SOCKET
 
     print "Sending command %s" % arguments.string

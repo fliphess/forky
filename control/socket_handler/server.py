@@ -3,7 +3,7 @@ import os
 import socket
 
 from control.bot.log import logger
-from frontend.exceptions import SocketListenerError
+from control.socket_handler.exceptions import SocketListenerError
 from control.socket_handler.decrypt import AuthDecrypt, DeCryptException
 
 

@@ -6,3 +6,5 @@ class Status(dict):
         self.update(kwargs)
         self.update({'message': message, 'success': success, 'alert': alert})
 
+    def add(self, data):
+        self.update(data)

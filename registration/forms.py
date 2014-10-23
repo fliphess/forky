@@ -48,7 +48,7 @@ class RegistrationForm(forms.Form):
 
     tos = forms.BooleanField(
         widget=forms.CheckboxInput,
-        label=_(u'I will not be an asshole'),
+        label=_(u'I will not be a troll'),
         error_messages={'required': _("I will not be an asshole")})
 
     def clean_username(self):

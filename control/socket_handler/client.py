@@ -1,7 +1,7 @@
 import os
 import socket
+from control.socket_handler.exceptions import SocketListenerError, SocketSenderError
 
-from frontend.exceptions import SocketSenderError, SocketListenerError
 from control.socket_handler.encrypt import AuthCrypt
 
 
@@ -16,11 +16,11 @@ class SocketSender(object):
         """ Clients use connect to connect to an existing socket
         """
         if not os.path.exists(self.socket_file):
-            raise SocketListenerError('Socket %s not found!' % self.socket_file)
+            raise SocketSenderError('Socket %s not found!' % self.socket_file)
         try:
             self.socket.connect(self.socket_file)
         except socket.error as e:
-            raise SocketListenerError('An error appeared binding to socket %s: %s' % (self.socket_file, e))
+            raise SocketSenderError('An error appeared binding to socket %s: %s' % (self.socket_file, e))
         return True
 
     def close(self):
