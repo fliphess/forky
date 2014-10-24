@@ -1,0 +1,21 @@
+<button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#msg_{{ user.id }}Modal"><i class="fa fa-unlock"></i> Send message</button>
+
+<div class="modal fade" id="msg_{{ user.id }}Modal" tabindex="-1" role="dialog" aria-labelledby="msg_{{ user.id }}ModalLabel" aria-hidden="true" data-color="FF00000">
+  <div class="modal-dialog">
+
+    <div class="modal-body">
+       <form method="post" action="{% url "send_msg" %}">{% csrf_token %}
+            <label class="label" for="channel">Channel or nick</label><br>
+            <input type="text" name="channel" class="input-xlarge"><br>
+            <label class="label" for="message">Enter a Message</label><br>
+            <textarea name="message" class="input-xlarge"></textarea><br>
+
+            <button colspan="2" type="submit" class="btn btn-success">Continue</button>
+            <a colspan="2" class="btn btn-default" href="#" data-dismiss="modal">Cancel.</a>
+       </form>
+	</div>
+
+
+  </div>
+</div>
+

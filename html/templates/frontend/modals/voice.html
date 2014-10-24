@@ -1,0 +1,18 @@
+<button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#v_{{ user.id }}Modal"><i class="fa fa-unlock"></i> Get Voice</button>
+
+<div class="modal fade" id="v_{{ user.id }}Modal" tabindex="-1" role="dialog" aria-labelledby="v_{{ user.id }}ModalLabel" aria-hidden="true" data-color="FF00000">
+  <div class="modal-dialog">
+    <div class="modal-body">
+
+          <div class="modal-title"  id="v_{{ user.id }}ModalLabel"><h2>Please enter a channel</h2></div>
+          <form method="post" action="{% url "get_voice" %}">{% csrf_token %}
+            <input type="text" name="channel" value="#" />
+            <button type="submit" class="btn btn-success">Continue</button>
+            <a class="btn btn-default" href="#" data-dismiss="modal">Cancel.</a>
+          </form>
+
+      </div>
+    </div>
+  </div>
+
+

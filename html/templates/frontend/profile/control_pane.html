@@ -11,15 +11,17 @@
          <div class="btn-group pull-left">
 
           {% if user.is_voice %}
-          <a data-original-title="Broadcast Message" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary"><i class="fa fa-unlock"></i> get voice</a>
+              {% include "frontend/modals/voice.html" %}
           {% endif %}
 
           {% if user.is_operator %}
               {% include "frontend/modals/ops.html" %}
           {% endif %}
 
-           <a data-original-title="Broadcast Message" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary"><i class="fa fa-envelope-o"></i> send msg</a>
-           <a data-original-title="Broadcast Message" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary"><i class="fa fa-ban"></i> Request a ban</a>
+          {% include "frontend/modals/message.html" %}
+
+{#           <a data-original-title="Broadcast Message" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary"><i class="fa fa-envelope-o"></i> send msg</a>#}
+           <a data-original-title="Broadcast Message" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary"><i class="fa fa-ban"></i> Request ops</a>
          </div>
 
          <div class="btn-group pull-right">
