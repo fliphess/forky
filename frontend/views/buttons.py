@@ -25,7 +25,7 @@ class GetOps(BaseView):
             return render(request, self.template, data)
 
         channel = request.POST.get('channel')
-        if not channel or not channel.startswith('#'):
+        if not channel or not channel.startswith('#') or channel == "#":
             data.update({'success': False, 'alert': True, 'message': "Faulty input"})
             return render(request, self.template, data)
 
