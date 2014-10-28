@@ -19,7 +19,8 @@ Feel free to join me in this irc project! i love pull requests so please do :)
 ## Install 
 
 ### Prerequisistes
-```bash 
+```bash
+ 
     git clone git@github.com:fliphess/django-ircbot.git
     cd django-ircbot 
     pip install -r requirements.txt
@@ -29,11 +30,14 @@ Feel free to join me in this irc project! i love pull requests so please do :)
 edit control/settings.py
 
 ### Running the webinterface: 
-   ./manage.py runserver 
+```
+   ./manage.py runserver 0.0.0.0:8080 
+```
    
 ### Running the irc bot 
-  ./start-ircbot 
-
+```
+  ./start-ircbot
+```
 
 ## Registration Flow
 1. Create user account on site, or be notified the register page using .meet <name>
@@ -70,15 +74,14 @@ edit control/settings.py
 - [X] Token generation for IRC "login"
 - [X] Create user edit profile page for non admin users
 - [X] Write socket client package
-- [ ] control bot page (connect to socket)
+- [X] control bot page (connect to socket)
+- [X] send to channel/priv functionality (also msg oneself to change settings)
+- [X] api view to send data to channel using registration token or user/pass
+- [X] socket listener buttons in profile
 - [ ] live log for superusers (all events logged to db)
-- [ ] request a ban
-- [ ] send to channel/priv functionality (also msg oneself to change settings)
 - [ ] proper edit profile page with more then just a form
-- [ ] easy page 
-- [ ] api view to send data to channel using registration token or user/pass
-- [ ] socket listener buttons in profile
 - [ ] http://bixly.com/blog/awesome-forms-django-crispy-forms/
+- [ ] items apps to view ones quotes/infoitems/etc
 
 ### Bot
 - [X] .meet <user> module to start the registration process
@@ -105,6 +108,7 @@ edit control/settings.py
 ### ORM
 - [X] adjust willie modules to use django orm and add to modules + initial_data.json
 - [X] Quotes Model
+- [X] Separate models into apps
 - [ ] Last seen field in user model
 - [ ] edit django settings module or store all non-django settings in database
 - [ ] channel modes in channel model
