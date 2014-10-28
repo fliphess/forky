@@ -1,12 +1,12 @@
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404, render
 from control import Status
-from frontend.views.base_view import BaseView
+from profile.views.base_view import BaseView
 BotUser = get_user_model()
 
 
 class RegenerateToken(BaseView):
-    template = "frontend/profile_overview.html"
+    template = "profile/profile_overview.html"
     action = 'regenerate_token'
 
     def post(self, request):

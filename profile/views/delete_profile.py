@@ -2,12 +2,12 @@ from django.contrib.auth import get_user_model
 from django.db import transaction
 from django.shortcuts import get_object_or_404, render
 from control import Status
-from frontend.views.base_view import BaseView
+from profile.views.base_view import BaseView
 
 BotUser = get_user_model()
 
 class DeleteProfile(BaseView):
-    template = "frontend/delete_profile.html"
+    template = "profile/delete_profile.html"
 
     @transaction.atomic()
     def post(self, request):
@@ -16,7 +16,7 @@ class DeleteProfile(BaseView):
 
         if request.POST.get("delete", None) == "0":
             data.update({"message": "Deletion canceled!", "alert": True, "success": False})
-            return render(request, "frontend/profile_overview.html", data)
+            return render(request, "profile/profile_overview.html", data)
 
         elif request.POST.get("delete", None) == "1":
             if user.is_superuser:

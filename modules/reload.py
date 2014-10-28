@@ -3,7 +3,7 @@ from imp import load_source
 import os
 import sys
 from control.bot.decorators import commands, priority, thread, restrict
-from frontend.models import Module
+from profile.models import Module
 
 @restrict(4)
 @commands('reload')

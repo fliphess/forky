@@ -1,5 +1,5 @@
 from SimpleAES import SimpleAES, DecryptionError
-from frontend.models import SocketUser
+from profile.models import SocketUser
 
 
 class DeCryptException(Exception):

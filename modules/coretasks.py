@@ -2,7 +2,7 @@
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from control.bot.decorators import event, rule, priority, commands, restrict
-from frontend.models import Channel
+from profile.models import Channel
 BotUser = get_user_model()
 
 @event('251')

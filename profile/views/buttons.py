@@ -4,8 +4,8 @@ from django.shortcuts import get_object_or_404, render
 from control import Status
 from control.socket_handler.client import SocketSender
 from control.socket_handler.exceptions import SocketSenderError
-from frontend.models import SocketUser
-from frontend.views.base_view import BaseView
+from profile.models import SocketUser
+from profile.views.base_view import BaseView
 
 BotUser = get_user_model()
 

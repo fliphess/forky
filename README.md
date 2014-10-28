@@ -78,6 +78,7 @@ edit control/settings.py
 - [ ] easy page 
 - [ ] api view to send data to channel using registration token or user/pass
 - [ ] socket listener buttons in profile
+- [ ] http://bixly.com/blog/awesome-forms-django-crispy-forms/
 
 ### Bot
 - [X] .meet <user> module to start the registration process

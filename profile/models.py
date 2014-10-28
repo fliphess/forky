@@ -91,7 +91,6 @@ class Module(models.Model):
 class Ban(models.Model):
     nick = models.CharField('nick', max_length=100, unique=True)
     host = models.CharField('host', max_length=100)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, unique=True)
 
 
 class SocketUser(models.Model):

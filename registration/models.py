@@ -9,7 +9,7 @@ from django.db import transaction
 from django.template.loader import render_to_string
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
-from frontend.models import SocketUser
+from profile.models import SocketUser
 
 
 try:

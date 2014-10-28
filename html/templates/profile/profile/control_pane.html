@@ -11,14 +11,14 @@
          <div class="btn-group pull-left">
 
           {% if user.is_voice %}
-              {% include "frontend/modals/voice.html" %}
+              {% include "profile/modals/voice.html" %}
           {% endif %}
 
           {% if user.is_operator %}
-              {% include "frontend/modals/ops.html" %}
+              {% include "profile/modals/ops.html" %}
           {% endif %}
 
-          {% include "frontend/modals/message.html" %}
+          {% include "profile/modals/message.html" %}
 
          </div>
 

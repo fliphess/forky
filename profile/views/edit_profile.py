@@ -3,12 +3,12 @@ from django.db import transaction
 from django.shortcuts import get_object_or_404, render
 from django.views.generic import View
 from control import Status
-from frontend.forms import EditProfileForm
+from profile.forms import EditProfileForm
 BotUser = get_user_model()
 
 
 class EditProfile(View):
-    template = "frontend/edit_profile.html"
+    template = "profile/edit_profile.html"
 
     def get(self, request):
         user = get_object_or_404(BotUser, username=request.user.username)
@@ -37,5 +37,5 @@ class EditProfile(View):
             user.save(force_update=True)
 
             data.update({'form': form, 'success': True, 'alert': True, 'message': 'User profile updated!'})
-            return render(request, "frontend/profile_overview.html", data)
+            return render(request, "profile/profile_overview.html", data)
         return render(request, self.template, data)

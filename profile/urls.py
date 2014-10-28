@@ -1,10 +1,10 @@
 from django.conf.urls import patterns, url
 from django.contrib.auth.decorators import login_required
-from frontend.views.base_view import BaseView
-from frontend.views.buttons import GetVoice, GetOps, SendMessage
-from frontend.views.delete_profile import DeleteProfile
-from frontend.views.edit_profile import EditProfile
-from frontend.views.regenerate_token import RegenerateToken
+from profile.views.base_view import BaseView
+from profile.views.buttons import GetVoice, GetOps, SendMessage
+from profile.views.delete_profile import DeleteProfile
+from profile.views.edit_profile import EditProfile
+from profile.views.regenerate_token import RegenerateToken
 
 
 urlpatterns = patterns(
@@ -19,4 +19,6 @@ urlpatterns = patterns(
     url(r'^send_msg/?$', login_required(SendMessage.as_view()), name='send_msg'),
     url(r'^get_ops/?$', login_required(GetOps.as_view()), name='get_ops'),
     url(r'^get_voice/?$', login_required(GetVoice.as_view()), name='get_voice'),
+
+
 )
