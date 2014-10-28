@@ -30,8 +30,6 @@ Provides auth and encryption
     a.connect()
     a.send('plop')
     a.close()
-    
-
 ```
 
 

@@ -4,7 +4,8 @@
 """
 from django.core.urlresolvers import reverse
 from control.bot.decorators import commands, priority, example, restrict
-from profile.models import Channel
+from control.models import Channel
+
 
 @restrict(1)
 @commands('channels', 'list_channels')

@@ -11,8 +11,9 @@ urlpatterns = patterns(
     url(r'^start/$', login_required(IndexPage.as_view()), name='start'),
 
     url(r'^profile/', include('profile.urls')),
-    url(r'^accounts/', include('registration.backend.urls')),
+    url(r'^items/', include('items.urls')),
 
+    url(r'^accounts/', include('registration.backend.urls')),
     url(r'^admin/', include(admin.site.urls)),
 
     url(r'^login/$', 'django.contrib.auth.views.login', {'template_name': 'auth/login.html'}, name='login'),

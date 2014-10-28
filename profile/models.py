@@ -1,9 +1,9 @@
 import random
 import string
+
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from django.utils import timezone
 
 
 def rand_key(size):
@@ -63,34 +63,6 @@ class BotUser(AbstractUser):
             return '%s %s' % (self.first_name.title(), self.last_name.title())
         return "Anonymous chatter"
     real_name = property(_get_full_name)
-
-
-class InfoItem(models.Model):
-    item = models.CharField('item', max_length=100, unique=True)
-    text = models.TextField('text')
-
-
-class Quote(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, unique=True)
-    quote = models.TextField('quote')
-    date_added = models.DateTimeField('date_added', default=timezone.now)
-
-
-class Channel(models.Model):
-    channel = models.CharField('channel', max_length=100, unique=True)
-    topic = models.CharField('topic', max_length=255)
-    key = models.CharField('key', max_length=255, blank=True)
-
-
-class Module(models.Model):
-    name = models.CharField('name', max_length=100, unique=True)
-    enabled = models.BooleanField('enabled', default=True)
-    filename = models.CharField('filename', max_length=100, unique=False)
-
-
-class Ban(models.Model):
-    nick = models.CharField('nick', max_length=100, unique=True)
-    host = models.CharField('host', max_length=100)
 
 
 class SocketUser(models.Model):

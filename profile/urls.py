@@ -19,6 +19,4 @@ urlpatterns = patterns(
     url(r'^send_msg/?$', login_required(SendMessage.as_view()), name='send_msg'),
     url(r'^get_ops/?$', login_required(GetOps.as_view()), name='get_ops'),
     url(r'^get_voice/?$', login_required(GetVoice.as_view()), name='get_voice'),
-
-
 )
