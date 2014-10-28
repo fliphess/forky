@@ -10,7 +10,7 @@ urlpatterns = patterns(
     url(r'^$', login_required(IndexPage.as_view()), name='main'),
     url(r'^start/$', login_required(IndexPage.as_view()), name='start'),
 
-    url(r'^profile/', include('frontend.urls')),
+    url(r'^profile/', include('profile.urls')),
     url(r'^accounts/', include('registration.backend.urls')),
 
     url(r'^admin/', include(admin.site.urls)),

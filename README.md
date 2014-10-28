@@ -52,13 +52,14 @@ edit control/settings.py
 
 
 ## User restrictions
-0: 'user'
-1: 'registered and logged in'
-2: 'voice'
-3: 'operator'
-4: 'staff'
-5: 'superuser'
-
+{
+    0: 'user'
+    1: 'registered and logged in'
+    2: 'voice'
+    3: 'operator'
+    4: 'staff'
+    5: 'superuser'
+}
 
 ## Work in Progress:
  
@@ -77,6 +78,7 @@ edit control/settings.py
 - [ ] easy page 
 - [ ] api view to send data to channel using registration token or user/pass
 - [ ] socket listener buttons in profile
+- [ ] http://bixly.com/blog/awesome-forms-django-crispy-forms/
 
 ### Bot
 - [X] .meet <user> module to start the registration process
@@ -87,7 +89,6 @@ edit control/settings.py
 - [X] socket listener to send raw irc to server
 - [X] check if user is login or reply in restriction 
 - [X] rewrite decrypt / socket server thing to log incoming data for each user
-
 - [ ] trigger module that updates seen data
 - [ ] .seen <user> module that gets the last seen data from database
 - [ ] quotes module 

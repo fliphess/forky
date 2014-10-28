@@ -1,6 +1,6 @@
 from django.core.urlresolvers import reverse
 from control.bot.decorators import example, priority, commands, restrict
-from frontend.models import InfoItem
+from profile.models import InfoItem
 
 
 @restrict(1)

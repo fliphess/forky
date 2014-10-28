@@ -44,33 +44,16 @@ class BotUser(AbstractUser):
         self.save()
 
     def register_user(self):
+        token_user, create = SocketUser.objects.get_or_create(user=user)
+        token_user.is_active = True
+        token_user.save()
         self.registered = True
-        self.is_active = True
         self.save()
-
-    def enable_account(self, host):
-        self.is_active = True
-        self.registered = True
-        self.host = host
-        self.save()
-
-    def disable_account(self):
-        self.is_active = False
-        self.registered = False
-        self.host = 'A regex that does not match'
-        self.save()
-
-    def ban_user(self):
-        self.is_banned = True
-        self.disable_account()
-
-    def unban_user(self, host):
-        self.is_banned = False
-        self.enable_account(host)
 
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
         if self.nick is None or len(self.nick) == 0:
             self.nick = '%s%s_%s' % (self.first_name.title() or 'None', self.last_name.title() or 'None', rand_key(4))
+
         if self.registration_token is None or len(self.registration_token) == 0:
             self.registration_token = rand_key(settings.REGISTRATION_TOKEN_SIZE)
         models.Model.save(self, force_insert, force_update, using, update_fields)
@@ -108,21 +91,12 @@ class Module(models.Model):
 class Ban(models.Model):
     nick = models.CharField('nick', max_length=100, unique=True)
     host = models.CharField('host', max_length=100)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, unique=True)
 
 
 class SocketUser(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, unique=True)
     token = models.CharField('token', max_length=255, unique=True, db_index=True)
     is_active = models.BooleanField('active', default=False)
-
-    def enable_user(self, host):
-        self.is_active = True
-        self.save()
-
-    def disable_user(self):
-        self.is_active = False
-        self.save()
 
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
         if self.token is None or len(self.token) == 0:

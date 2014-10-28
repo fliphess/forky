@@ -9,7 +9,7 @@ from django.db import transaction
 from django.template.loader import render_to_string
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
-
+from profile.models import SocketUser
 
 
 try:
@@ -61,16 +61,18 @@ class RegistrationManager(models.Manager):
             except self.model.DoesNotExist:
                 return False
             if not profile.activation_key_expired():
+
                 user = profile.user
                 user.is_active = True
                 user.save()
+
                 profile.activation_key = self.model.ACTIVATED
                 profile.save()
+
                 return user
         return False
     
-    def create_inactive_user(self, username, email, password,
-                             site, send_email=True):
+    def create_inactive_user(self, username, email, password, site, send_email=True):
         """
         Create a new, inactive ``User``, generate a
         ``RegistrationProfile`` and email its activation key to the
@@ -78,7 +80,6 @@ class RegistrationManager(models.Manager):
 
         By default, an activation email will be sent to the new
         user. To disable this, pass ``send_email=False``.
-        
         """
         from django.contrib.auth import get_user_model
         User = get_user_model()
@@ -86,6 +87,12 @@ class RegistrationManager(models.Manager):
         new_user = User.objects.create_user(username, email, password)
         new_user.is_active = False
         new_user.save()
+
+        # create a token for bot actions
+        token_user = SocketUser(user=new_user)
+        token_user.token = None
+        token_user.is_active = False
+        token_user.save()
 
         registration_profile = self.create_profile(new_user)
 
@@ -274,4 +281,3 @@ class RegistrationProfile(models.Model):
                                    ctx_dict)
         
         self.user.email_user(subject, message, settings.DEFAULT_FROM_EMAIL)
-    

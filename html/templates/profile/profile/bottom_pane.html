@@ -17,7 +17,7 @@
 
         <div class="btn-group pull-right">
             <form action="{% url "regenerate_token" %}" method="post">{% csrf_token %}
-              <input type="hidden" name="regenerate_token" value="1" />
+              <input type="hidden" name="regenerate_token" value="regenerate_token=true" />
               <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-bolt"> Generate Token</i></button>
             </form>
         </div>

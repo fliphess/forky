@@ -1,4 +1,6 @@
 import os
+from django.contrib import messages
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 # LOGGING
@@ -28,13 +30,34 @@ SECRET_KEY = '5rgj4(l8a*v@gb_g4ilg!7)!dpkv%0uj7ldsav+zi62n9(o5rs'
 ROOT_URLCONF = 'control.urls'
 WSGI_APPLICATION = 'control.wsgi.application'
 
+
+
+# FORMS
+
+
+
+
 # STATIC
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'html/static'),)
 
 # TEMPLATES
+CRISPY_TEMPLATE_PACK = 'uni_form'
 TEMPLATE_DEBUG = True
 TEMPLATE_DIRS = (os.path.join(BASE_DIR, 'html/templates'),)
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.core.context_processors.request',
+    'django.contrib.auth.context_processors.auth',
+)
+
+
+MESSAGE_TAGS = {
+    messages.SUCCESS: 'alert-success success',
+    messages.WARNING: 'alert-warning warning',
+    messages.ERROR: 'alert-danger error'
+}
+
+
 
 # APPS
 INSTALLED_APPS = (
@@ -44,13 +67,15 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.humanize',
     'django.contrib.staticfiles',
+    'django_admin_bootstrapped.bootstrap3',
+    'django_admin_bootstrapped',
     'django.contrib.admin',
-    'frontend',
+    'profile',
     'registration',
 )
 
 # AUTH
-AUTH_USER_MODEL = 'frontend.BotUser'
+AUTH_USER_MODEL = 'profile.BotUser'
 
 # MIDDLEWARE
 MIDDLEWARE_CLASSES = (
@@ -73,6 +98,11 @@ DATABASES = {
 
 # LISTENER SETTINGS
 LISTENER_SOCKET = '/tmp/ircbot.sock'
+SOCKET_COMMANDS = {
+    "give_ops": "MODE %s +o %s",
+    "give_voice": "MODE %s +v %s",
+    "send_msg": "PRIVMSG %s :%s",
+}
 
 # BOT SETTINGS
 BOT_NICK = 'FlipperBot'
@@ -103,3 +133,5 @@ EMAIL_HOST_PASSWORD=None    # 'password'
 EMAIL_BAD_DOMAIN_DB = 'db/bad_domain_list.db'
 with open(EMAIL_BAD_DOMAIN_DB) as l:
     EMAIL_BAD_DOMAIN_LIST = [i.strip() for i in l.readlines() if i and not i.startswith("#")]
+
+
