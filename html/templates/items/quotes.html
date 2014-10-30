@@ -26,19 +26,15 @@
       <div class="carousel slide" data-ride="carousel" id="quote-carousel">
 
         <ol class="carousel-indicators">
-          {%  for quote in quotes %}
-          {% if quote.id == 1 %}
-          <li data-target="#quote-carousel" data-slide-to="{{ quote.id }}" class="active"></li>
-          {% else %}
-          <li data-target="#quote-carousel" data-slide-to="{{ quote.id }}"></li>
-          {% endif %}
+          {%  for num, obj in quotes %}
+          {% if num == 0 %}<li data-target="#quote-carousel" data-slide-to="{{ num }}" class="active"></li>{% else %}<li data-target="#quote-carousel" data-slide-to="{{ num }}"></li>{% endif %}
           {% endfor %}
         </ol>
 
         <div class="carousel-inner">
 
-          {% for quote in quotes %}
-          {% if quote.id == 1 %}
+          {% for num, quote in quotes %}
+          {% if num == 0 %}
           <div class="item active">
           {% else %}
           <div class="item">
@@ -65,8 +61,6 @@
         <a data-slide="next" href="#quote-carousel" class="right carousel-control"><i class="fa fa-chevron-right"></i></a>
 
       </div>
-    </div>
-  </div>
 
   <div class="btn-group pull-left">
     <a href="{% url "add_quote" %}" data-original-title="Add quote" data-toggle="tooltip" type="button" class="btn btn-sm btn-info"><i class="fa fa-cogs"></i> Add a quote</a>

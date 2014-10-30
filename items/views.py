@@ -12,8 +12,8 @@ class QuotesView(View):
     model = Quote
 
     def get(self, request):
-        quotes = Quote.objects.filter(user__username=request.user.username)
-        self.data.add({"quotes": quotes, "user": request.user})
+        quotes = enumerate(Quote.objects.filter(user__username=request.user.username))
+        self.data.add({"quotes": quotes})
         return render(request, self.template, self.data)
 
 
@@ -24,7 +24,7 @@ class ShowQuote(View):
 
     def get(self, request, pk):
         quote = get_object_or_404(self.model, pk=pk)
-        self.data.add({"quote": quote, "user": request.user})
+        self.data.add({"quote": quote})
         return render(request, self.template, self.data)
 
 
@@ -50,4 +50,29 @@ class AddQuote(View):
 
 
 class DeleteQuote(View):
-    pass
+    template = "items/delete_quote.html"
+    data = Status(alert=True, success=False, message='Error deleting quote!')
+
+    def get(self, request, pk):
+        quote = get_object_or_404(Quote, pk=pk)
+        self.data.update({'quote': quote})
+        return render(request, self.template, self.data)
+
+    @transaction.atomic()
+    def post(self, request, pk):
+        quote = get_object_or_404(Quote, pk=pk)
+
+        if not quote.user.username == request.user.username:
+            self.data.update({"message": "A user can only delete it's own quotes!", "alert": True, "success": False})
+            return render(request, self.template, self.data)
+
+        if request.POST.get("delete", None) == "0":
+            self.data.update({"message": "Deletion canceled!", "alert": True, "success": False})
+            return render(request, self.template, self.data)
+
+        elif request.POST.get("delete", None) == "1":
+            quote.delete()
+            self.data.update({'success': True, 'alert': True, 'message': 'Quote deleted!'})
+            return render(request, "items/quotes.html", self.data)
+
+        return render(request, self.template, self.data)
