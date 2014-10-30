@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 from django.db import transaction
 from django.shortcuts import get_object_or_404, render
 from control import Status
-from profile.views.base_view import BaseView
+from control.views import BaseView
 
 BotUser = get_user_model()
 

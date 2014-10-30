@@ -4,13 +4,14 @@ from django.shortcuts import get_object_or_404, render
 from control import Status
 from control.socket_handler.client import SocketSender
 from control.socket_handler.exceptions import SocketSenderError
+from control.views import BaseView
 from profile.models import SocketUser
-from profile.views.base_view import BaseView
 
 BotUser = get_user_model()
 
 
 class GetOps(BaseView):
+    template = "profile/profile_overview.html"
     action = 'give_ops'
     restr = 'is_operator'
 
@@ -91,4 +92,26 @@ class SendMessage(GetOps):
             return render(request, self.template, data)
 
         data.update({'success': True, 'alert': True, 'message': 'Message send by bot!'})
+        return render(request, self.template, data)
+
+
+class RegenerateToken(BaseView):
+    template = "profile/profile_overview.html"
+    action = 'regenerate_token'
+
+    def post(self, request):
+        user = get_object_or_404(BotUser, username=request.user.username)
+        data = Status(user=user, alert=True, success=False, message='Invalid input for %s!' % self.action)
+
+        try:
+            action, value = request.POST.get(self.action).split('=')
+        except AttributeError:
+            return render(request, self.template, data)
+
+        if action and action == self.action:
+            if value == 'true':
+                user.registration_token = None
+                user.save()
+                data.update({'success': True, 'alert': True, 'message': 'Registration token regenerated!'})
+                return render(request, self.template, data)
         return render(request, self.template, data)
