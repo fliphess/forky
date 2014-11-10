@@ -11,6 +11,7 @@ class Quote(models.Model):
     class Meta:
         unique_together = ('user', 'quote',)
 
+
 class InfoItem(models.Model):
     item = models.CharField('item', max_length=100, unique=True)
     text = models.TextField('text')

@@ -9,7 +9,6 @@ from django.db import transaction
 from django.template.loader import render_to_string
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
-from profile.models import SocketUser
 
 
 try:
@@ -87,13 +86,6 @@ class RegistrationManager(models.Manager):
         new_user = User.objects.create_user(username, email, password)
         new_user.is_active = False
         new_user.save()
-
-        # create a token for bot actions
-        token_user = SocketUser(user=new_user)
-        token_user.token = None
-        token_user.is_active = False
-        token_user.save()
-
         registration_profile = self.create_profile(new_user)
 
         if send_email:

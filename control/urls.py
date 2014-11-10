@@ -12,6 +12,7 @@ urlpatterns = patterns(
 
     url(r'^profile/', include('profile.urls')),
     url(r'^items/', include('items.urls')),
+    url(r'^chat/', include('chat.urls')),
 
     url(r'^accounts/', include('registration.backend.urls')),
     url(r'^admin/', include(admin.site.urls)),

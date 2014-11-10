@@ -12,7 +12,7 @@ class QuotesView(View):
     model = Quote
 
     def get(self, request):
-        quotes = enumerate(Quote.objects.filter(user__username=request.user.username))
+        quotes = [i for i in enumerate(Quote.objects.filter(user__username=request.user.username))]
         self.data.add({"quotes": quotes})
         return render(request, self.template, self.data)
 

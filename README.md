@@ -67,7 +67,18 @@ edit control/settings.py
 }
 
 ## Work in Progress:
- 
+- [ ] Quotes
+- [ ] Add created by field in model 
+- [ ] fix carousel 
+- [ ] allow creation for quotes not the user itself, but everyone
+
+- [ ] add quote module 
+- [ ] complain  quote function 
+- [ ] complain module that taggs users 
+- [ ] if complain N times => take user rights to set quotes etc 
+- [ ] 
+
+
 ### Django frontend
 
 - [X] User registration through django web ui link and email
@@ -85,7 +96,6 @@ edit control/settings.py
 - [ ] items apps to view ones quotes/infoitems/etc
 - [ ] -Fully- implement register/login through email AND bot 
 - [ ] http://cssdeck.com/labs/twitter-bootstrap-tabbed-login-and-signup-register-forms-interface
-- [ ] 
 
 ### Bot
 - [X] .meet <user> module to start the registration process
