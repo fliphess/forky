@@ -7,13 +7,18 @@ This bot is not fully compatible anymore with all willie modules, but it does no
 While still heavily under development, both the bootstrap web interface, as the user interaction through the irc bot 
 are both kinda sorta functional 
 
-This bot does not send passwords in plain text to the irc bot, but uses a token based system, where after each action, 
-your token is automagically refreshed, this way avoiding you to use the password of you registered user account to be send over irc. 
+This bot does not send passwords in plain text to the irc bot, but uses a one time password or "token" based mechanism 
+for irc authenthication and registration, where after each action, your token is automagically refreshed, 
+this way avoiding you to use the password of your registered user account to be send over irc. 
 
 At the moment most of the modules don't require a token to use the module, but check for a is_login flag, which is atm only 
 set at login, but never unchecked when parting/disconnecting/in time/etc so still lots to do :) 
 
-Feel free to join me in this irc project! i love pull requests so please do :)
+As much as possible i'm trying to make this bot multiple channel supporting, but it does not make much separation. 
+Operator, voice, banned etc are user based, so operator means operator on all channels the bot is in.
+
+Feel free to join me in this irc project! i love pull requests so please do. I'm making a lot of changes at the moment, 
+ so any contact would be appreciated :)
 
 
 ## Install 
