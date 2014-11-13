@@ -72,14 +72,17 @@ edit control/settings.py
 
 
 ## Work in Progress:
-- [ ] Quotes
-- [ ] Add created by field in models 
-- [ ] allow creation for quotes not the user itself, but everyone
-- [ ] add quote module 
-- [ ] items apps to view ones quotes/infoitems/etc
+- [ ] trigger module that updates seen data
+- [ ] .seen <user> module that gets the last seen data from database
+- [ ] listener module that auto logout all parted/quitted/left
+- [ ] replace origin with django model 
+- [ ] auto ban on join
+- [ ] Last seen field in user model
 
 
 ### Django frontend
+- [X] Quotes
+- [X] items apps to view ones quotes/infoitems/etc
 - [X] User registration through django web ui link and email
 - [X] adjust user registration to notify token through private message OR email
 - [X] Token generation for IRC "login"
@@ -90,6 +93,7 @@ edit control/settings.py
 - [X] api view to send data to channel using registration token or user/pass
 - [X] socket listener buttons in profile
 - [X] fix carousel 
+
 - [ ] live log for superusers (all events logged to db)
 - [ ] proper edit profile page with more then just a basic django form
 - [ ] -Fully- implement register/login through email AND bot 
@@ -103,22 +107,20 @@ edit control/settings.py
 - [X] socket listener to send raw irc to server
 - [X] check if user is login or reply in restriction 
 - [X] rewrite decrypt / socket server thing to log incoming data for each user
-- [ ] trigger module that updates seen data
-- [ ] .seen <user> module that gets the last seen data from database
-- [ ] .quotes module 
-- [ ] auto ban on join
+- [X] add quote module 
+
 - [ ] auto load module 
-- [ ] listener module that auto logout all parted/quitted/left
-- [ ] auto channel to +i mode
+- [ ] auto channel to +i mode module
 - [ ] superuser module to request all data of a user, send in privmsg
-- [ ] fix endless reload loop in multiple threads while func.thread(False)
+- [ ] fix endless reload loop in multiple threads while func.thread(False) in reload module
 - [ ] remove any other user restriction but the ones in the user model
+
 
 ### ORM
 - [X] adjust willie modules to use django orm and add to modules + initial_data.json
 - [X] Quotes Model
 - [X] Separate models into apps
-- [ ] Last seen field in user model
+
 - [ ] edit django settings module or store all non-django settings in database
 - [ ] channel modes in channel model
 - [ ] event/socket_logging/channel_logging model for stats etc, with rotation 
@@ -127,6 +129,6 @@ edit control/settings.py
 ### System
 - [ ] get settings from django models instead of a huge django.conf.settings 
 - [ ] supervisor task to keep the bot running
-- [ ] hard exit on disconnection
+- [ ] hard exit on disconnection or auto reconnect
 - [ ] socket listener control protocol + options to start/stop/reload the bot
-- [ ] get user complaint => take user rights to set quotes, user rating etc 
+- [ ] request removal for info items quotes etc 

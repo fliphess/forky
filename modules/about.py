@@ -1,5 +1,5 @@
+from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.core.urlresolvers import reverse
 from control.bot.decorators import example, priority, commands, restrict
 BotUser = get_user_model()
 
@@ -10,7 +10,7 @@ BotUser = get_user_model()
 @example('.about <nick>')
 def about(bot, trigger):
     if not trigger.user_object or not trigger.user_object.is_login or not trigger.user_object.registered:
-        return bot.msg(trigger.nick, 'Please login or register first at %s' % reverse("registration_register"))
+        return bot.msg(trigger.nick, 'Please login or register first at %s' % settings.FULL_URL)
 
     try:
         incoming = trigger.group(2).split()
@@ -30,7 +30,7 @@ def about(bot, trigger):
 @example('.about_add <nick> <text>')
 def about_add(bot, trigger):
     if not trigger.user_object or not trigger.user_object.is_login or not trigger.user_object.registered:
-        return bot.msg(trigger.nick, 'Please login or register first at %s' % reverse("registration_register"))
+        return bot.msg(trigger.nick, 'Please login or register first at %s' % settings.FULL_URL)
 
     try:
         incoming = trigger.group(2).split()
@@ -60,7 +60,7 @@ def about_add(bot, trigger):
 @example('.about_update <nick> <text>')
 def about_update(bot, trigger):
     if not trigger.user_object and not trigger.user_object.is_login:
-        return bot.msg(trigger.nick, 'Please login or register first at %s' % reverse("registration_register"))
+        return bot.msg(trigger.nick, 'Please login or register first at %s' % settings.FULL_URL)
     try:
         incoming = trigger.group(2).split()
         nick = incoming[0]

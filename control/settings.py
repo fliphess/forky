@@ -30,11 +30,7 @@ SECRET_KEY = '5rgj4(l8a*v@gb_g4ilg!7)!dpkv%0uj7ldsav+zi62n9(o5rs'
 ROOT_URLCONF = 'control.urls'
 WSGI_APPLICATION = 'control.wsgi.application'
 
-
-
-# FORMS
-
-
+FULL_URL = 'https://example.com'
 
 
 # STATIC

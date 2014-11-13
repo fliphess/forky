@@ -2,7 +2,7 @@
 """
     admin.py - bot Admin Module
 """
-from django.core.urlresolvers import reverse
+from django.conf import settings
 from control.bot.decorators import commands, priority, example, restrict
 from control.models import Channel
 
@@ -16,7 +16,7 @@ def list_channels(bot, trigger):
         return
 
     if not trigger.user_object or not trigger.user_object.is_login or not trigger.user_object.registered:
-        return bot.msg(trigger.nick, 'Please login or register first at %s' % reverse("registration_register"))
+        return bot.msg(trigger.nick, 'Please login or register first at %s' % settings.FULL_URL)
 
     if trigger.admin:
         channels = [i.channel for i in Channel.objects.all()]
@@ -34,7 +34,7 @@ def add_channel(bot, trigger):
         return
 
     if not trigger.user_object or not trigger.user_object.is_login or not trigger.user_object.registered:
-        return bot.msg(trigger.nick, 'Please login or register first at %s' % reverse("registration_register"))
+        return bot.msg(trigger.nick, 'Please login or register first at %s' % settings.FULL_URL)
 
     channel = trigger.group(3)
     key = trigger.group(4)
@@ -67,7 +67,7 @@ def remove_channel(bot, trigger):
         return
 
     if not trigger.user_object or not trigger.user_object.is_login or not trigger.user_object.registered:
-        return bot.msg(trigger.nick, 'Please login or register first at %s' % reverse("registration_register"))
+        return bot.msg(trigger.nick, 'Please login or register first at %s' % settings.FULL_URL)
 
     channel = trigger.group(3)
     if not channel or not channel.startswith('#'):
@@ -91,7 +91,7 @@ def topic(bot, trigger):
         return
 
     if not trigger.user_object or not trigger.user_object.is_login or not trigger.user_object.registered:
-        return bot.msg(trigger.nick, 'Please login or register first at %s' % reverse("registration_register"))
+        return bot.msg(trigger.nick, 'Please login or register first at %s' % settings.FULL_URL)
 
     channel = trigger.group(3)
     text = trigger.group(2)[1:]

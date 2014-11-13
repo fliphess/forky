@@ -3,6 +3,7 @@
 msg.py - bot messaging Module
 
 """
+from django.conf import settings
 from django.core.urlresolvers import reverse
 from control.bot.decorators import priority, rule, commands, thread, example, restrict
 
@@ -41,7 +42,7 @@ def me(bot, trigger):
         return
 
     if not trigger.user_object or not trigger.user_object.is_login or not trigger.user_object.registered:
-        return bot.msg(trigger.nick, 'Please login or register first at %s' % reverse("registration_register"))
+        return bot.msg(trigger.nick, 'Please login or register first at %s' % settings.FULL_URL)
 
     channel, _sep, action = trigger.group(2).partition(' ')
     action = action.strip()
@@ -61,7 +62,7 @@ def write_raw(bot, trigger):
         return
 
     if not trigger.user_object or not trigger.user_object.is_login or not trigger.user_object.registered:
-        return bot.msg(trigger.nick, 'Please login or register first at %s' % reverse("registration_register"))
+        return bot.msg(trigger.nick, 'Please login or register first at %s' % settings.FULL_URL)
 
     txt = trigger.bytes[7:]
     txt = txt.encode('utf-8')

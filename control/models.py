@@ -39,4 +39,3 @@ class IRCMessage(models.Model):
     def short_message(self):
         return self.message[:50]
     short_message.short_description = _("Message")
-

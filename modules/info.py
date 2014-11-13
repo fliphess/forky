@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.core.urlresolvers import reverse
 from control.bot.decorators import example, priority, commands, restrict
 from items.models import InfoItem
@@ -9,7 +10,7 @@ from items.models import InfoItem
 @example('.info <item>')
 def info(bot, trigger):
     if not trigger.user_object or not trigger.user_object.is_login or not trigger.user_object.registered:
-        return bot.msg(trigger.nick, 'Please login or register first at %s' % reverse("registration_register"))
+        return bot.msg(trigger.nick, 'Please login or register first at %s' % settings.FULL_URL)
 
     try:
         item = trigger.group(2).split(' ')[0]
@@ -30,7 +31,7 @@ def info(bot, trigger):
 @example('.add <item> <text>')
 def add(bot, trigger):
     if not trigger.user_object or not trigger.user_object.is_login or not trigger.user_object.registered:
-        return bot.msg(trigger.nick, 'Please login or register first at %s' % reverse("registration_register"))
+        return bot.msg(trigger.nick, 'Please login or register first at %s' % settings.FULL_URL)
 
     try:
         incoming = trigger.group(2).split(' ')
@@ -58,7 +59,7 @@ def add(bot, trigger):
 @example('.update <item> <text>')
 def update(bot, trigger):
     if not trigger.user_object or not trigger.user_object.is_login or not trigger.user_object.registered:
-        return bot.msg(trigger.nick, 'Please login or register first at %s' % reverse("registration_register"))
+        return bot.msg(trigger.nick, 'Please login or register first at %s' % settings.FULL_URL)
 
     try:
         incoming = trigger.group(2).split(' ')
@@ -85,7 +86,7 @@ def update(bot, trigger):
 @example('.delete <item>')
 def delete(bot, trigger):
     if not trigger.user_object or not trigger.user_object.is_login or not trigger.user_object.registered:
-        return bot.msg(trigger.nick, 'Please login or register first at %s' % reverse("registration_register"))
+        return bot.msg(trigger.nick, 'Please login or register first at %s' % settings.FULL_URL)
 
     try:
         item = trigger.group(2)

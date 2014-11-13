@@ -4,6 +4,7 @@ admin.py - bot Admin Module
 
 """
 import re
+from django.conf import settings
 from django.core.urlresolvers import reverse
 
 from control.bot.decorators import commands, priority, restrict
@@ -45,7 +46,7 @@ def kick(bot, trigger):
         return
 
     if not trigger.user_object or not trigger.user_object.is_login or not trigger.user_object.registered:
-        return bot.msg(trigger.nick, 'Please login or register first at %s' % reverse("registration_register"))
+        return bot.msg(trigger.nick, 'Please login or register first at %s' % settings.FULL_URL)
 
     text = trigger.group().split()
     length = len(text)
@@ -83,7 +84,7 @@ def ban(bot, trigger):
         return
 
     if not trigger.user_object or not trigger.user_object.is_login or not trigger.user_object.registered:
-        return bot.msg(trigger.nick, 'Please login or register first at %s' % reverse("registration_register"))
+        return bot.msg(trigger.nick, 'Please login or register first at %s' % settings.FULL_URL)
 
     text = trigger.group().split()
     length = len(text)
@@ -120,7 +121,7 @@ def unban(bot, trigger):
         return
 
     if not trigger.user_object or not trigger.user_object.is_login or not trigger.user_object.registered:
-        return bot.msg(trigger.nick, 'Please login or register first at %s' % reverse("registration_register"))
+        return bot.msg(trigger.nick, 'Please login or register first at %s' % settings.FULL_URL)
 
     text = trigger.group().split()
     length = len(text)
@@ -156,7 +157,7 @@ def kickban(bot, trigger):
        return
 
     if not trigger.user_object or not trigger.user_object.is_login or not trigger.user_object.registered:
-        return bot.msg(trigger.nick, 'Please login or register first at %s' % reverse("registration_register"))
+        return bot.msg(trigger.nick, 'Please login or register first at %s' % settings.FULL_URL)
 
     text = trigger.group().split()
     length = len(text)

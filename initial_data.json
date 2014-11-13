@@ -178,5 +178,75 @@
   },
   "model": "profile.socketuser",
   "pk": 1
+},
+{
+  "fields": {
+    "item": "wag",
+    "text": "efdx"
+  },
+  "model": "items.infoitem",
+  "pk": 1
+},
+{
+  "fields": {
+    "item": "aetga",
+    "text": "aetfegagffyrstf"
+  },
+  "model": "items.infoitem",
+  "pk": 2
+},
+{
+  "fields": {
+    "quote": "awrgertsrh",
+    "user": 1,
+    "date_added": "2014-10-30T00:56:28.060Z"
+  },
+  "model": "items.quote",
+  "pk": 7
+},
+{
+  "fields": {
+    "quote": "tarsjydjhabd`zf",
+    "user": 1,
+    "date_added": "2014-10-30T00:59:46.017Z"
+  },
+  "model": "items.quote",
+  "pk": 8
+},
+{
+  "fields": {
+    "quote": "tarsjydjhabd`zfwdsfx",
+    "user": 1,
+    "date_added": "2014-10-30T01:00:43.462Z"
+  },
+  "model": "items.quote",
+  "pk": 9
+},
+{
+  "fields": {
+    "quote": "qefgaer",
+    "user": 1,
+    "date_added": "2014-10-30T01:04:52.208Z"
+  },
+  "model": "items.quote",
+  "pk": 11
+},
+{
+  "fields": {
+    "quote": "23qaegrhtgsyr32qaegt",
+    "user": 1,
+    "date_added": "2014-11-10T21:29:35.548Z"
+  },
+  "model": "items.quote",
+  "pk": 15
+},
+{
+  "fields": {
+    "quote": "2t3qerghsrgeag 4t3gersthnrgaerwf 34tge4w rsg4g",
+    "user": 1,
+    "date_added": "2014-11-10T21:29:42.568Z"
+  },
+  "model": "items.quote",
+  "pk": 16
 }
 ]

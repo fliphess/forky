@@ -2,6 +2,7 @@
 from imp import load_source
 import os
 import sys
+from django.conf import settings
 from control.bot.decorators import commands, priority, thread, restrict
 from control.models import Module
 
@@ -17,7 +18,7 @@ def f_reload(bot, trigger):
         return
 
     if not trigger.user_object or not trigger.user_object.is_login or not trigger.user_object.registered:
-        return bot.msg(trigger.nick, 'Please login or register first at %s' % reverse("registration_register"))
+        return bot.msg(trigger.nick, 'Please login or register first at %s' % settings.FULL_URL)
 
     modules = []
     files = [i.filename for i in Module.objects.filter(enabled=True)]
