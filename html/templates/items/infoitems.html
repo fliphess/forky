@@ -1,0 +1,49 @@
+{% extends "base/template.html" %}
+
+{% block content %}
+
+{% include "base/alert/alert.html" %}
+
+<div class="row">
+  <div class="container">
+
+      <div class="widget stacked widget-table action-table">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th class="col-sm-1">Identifier</th>
+              <th class="col-sm-1">Item</th>
+              <th class="col-sm-1">Text</th>
+              <th class="col-sm-1"></th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for item in items %}
+            <tr>
+              <td>{{ item.id }}</td>
+              <td>{{ item.item }}</td>
+              <td>{{ item.text }}</td>
+              <td>
+                <button class="btn btn-small btn-default" data-toggle="modal" data-target="#msg_{{ user.id }}Modal"><i class="fa fa-send-o"></i> Send</button>
+                <div class="modal fade" id="msg_{{ user.id }}Modal" tabindex="-1" role="dialog" aria-labelledby="msg_{{ user.id }}ModalLabel" aria-hidden="true" data-color="FF00000">
+                  <div class="modal-dialog">
+                    <div class="modal-body">
+                      <form action="{% url "item_view" item.id %}" method="post">{% csrf_token %}
+                        <h2>Please enter a channel or nickname to send {{ item.item }} to:</h2>
+                        <label class="label" for="channel">Channel or nick</label><br>
+                        <input type="text" name="channel" class="input-xlarge"><br><br>
+                        <button type="submit" class="btn btn-default">Submit</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          {% endfor %}
+        </table>
+      </div>
+
+  </div>
+</div>
+
+{% endblock %}

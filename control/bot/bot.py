@@ -29,7 +29,7 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "control.settings")
 django_setup()
 
 from django.contrib.auth import get_user_model
-from profile.models import Module
+from control.models import Module
 from tools import PriorityQueue, Released, get_command_regexp, BotMemory, user_status
 
 BotUser = get_user_model()

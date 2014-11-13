@@ -4,13 +4,14 @@ from django.shortcuts import get_object_or_404, render
 from control import Status
 from control.socket_handler.client import SocketSender
 from control.socket_handler.exceptions import SocketSenderError
+from control.views import BaseView
 from profile.models import SocketUser
-from profile.views.base_view import BaseView
 
 BotUser = get_user_model()
 
 
 class GetOps(BaseView):
+    template = "profile/profile_overview.html"
     action = 'give_ops'
     restr = 'is_operator'
 
@@ -36,7 +37,7 @@ class GetOps(BaseView):
             return render(request, self.template, data)
 
         try:
-            self.send_2_socket(username=user.username, token=token, command=command)
+            send_2_socket(username=user.username, token=token, command=command)
         except SocketSenderError as e:
             data.update({'success': False, 'alert': True, 'message': e})
             return render(request, self.template, data)
@@ -44,12 +45,12 @@ class GetOps(BaseView):
         data.update({'success': True, 'alert': True, 'message': '%s send to bot!' % command})
         return render(request, self.template, data)
 
-    @staticmethod
-    def send_2_socket(username, token, command):
-        a = SocketSender(user=username, token=token, unix_socket=settings.LISTENER_SOCKET)
-        a.connect()
-        a.send(command)
-        a.close()
+
+def send_2_socket(username, token, command):
+    a = SocketSender(user=username, token=token, unix_socket=settings.LISTENER_SOCKET)
+    a.connect()
+    a.send(command)
+    a.close()
 
 
 class GetVoice(GetOps):
@@ -63,7 +64,7 @@ class SendMessage(GetOps):
 
     def post(self, request):
         user = get_object_or_404(BotUser, username=request.user.username)
-        data = Status(user=user, alert=True, success=False, message='Error regenerating token!')
+        data = Status(user=user, alert=True, success=False, message='Error sending message to channel!')
 
         if not getattr(user, self.restr, None):
             data.update({'success': False,
@@ -85,10 +86,32 @@ class SendMessage(GetOps):
             return render(request, self.template, data)
 
         try:
-            self.send_2_socket(username=user.username, token=token, command=command)
+            send_2_socket(username=user.username, token=token, command=command)
         except SocketSenderError as e:
             data.update({'success': False, 'alert': True, 'message': e})
             return render(request, self.template, data)
 
         data.update({'success': True, 'alert': True, 'message': 'Message send by bot!'})
+        return render(request, self.template, data)
+
+
+class RegenerateToken(BaseView):
+    template = "profile/profile_overview.html"
+    action = 'regenerate_token'
+
+    def post(self, request):
+        user = get_object_or_404(BotUser, username=request.user.username)
+        data = Status(user=user, alert=True, success=False, message='Invalid input for %s!' % self.action)
+
+        try:
+            action, value = request.POST.get(self.action).split('=')
+        except AttributeError:
+            return render(request, self.template, data)
+
+        if action and action == self.action:
+            if value == 'true':
+                user.registration_token = None
+                user.save()
+                data.update({'success': True, 'alert': True, 'message': 'Registration token regenerated!'})
+                return render(request, self.template, data)
         return render(request, self.template, data)

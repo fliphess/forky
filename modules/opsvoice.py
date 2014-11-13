@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.core.urlresolvers import reverse
 from control.bot.decorators import example, priority, commands, restrict
 
@@ -13,7 +14,7 @@ def voice(bot, trigger):
         return bot.reply('You must be an admin to perform this operation')
 
     if not trigger.user_object or not trigger.user_object.is_login or not trigger.user_object.registered:
-        return bot.msg(trigger.nick, 'Please login or register first at %s' % reverse("registration_register"))
+        return bot.msg(trigger.nick, 'Please login or register first at %s' % settings.FULL_URL)
 
     try:
         inputs = trigger.group(2).split(' ')
@@ -47,7 +48,7 @@ def devoice(bot, trigger):
     """ Command to devoice users in a room. If no nick is given, bot will devoice the nick who sent the command
     """
     if not trigger.user_object or not trigger.user_object.is_login or not trigger.user_object.registered:
-        return bot.msg(trigger.nick, 'Please login or register first at %s' % reverse("registration_register"))
+        return bot.msg(trigger.nick, 'Please login or register first at %s' % settings.FULL_URL)
 
     if not trigger.admin:
         return bot.reply('You must be an admin to perform this operation')
@@ -88,7 +89,7 @@ def op(bot, trigger):
         return bot.reply('You must be an admin to perform this operation')
 
     if not trigger.user_object or not trigger.user_object.is_login or not trigger.user_object.registered:
-        return bot.msg(trigger.nick, 'Please login or register first at %s' % reverse("registration_register"))
+        return bot.msg(trigger.nick, 'Please login or register first at %s' % settings.FULL_URL)
 
     try:
         inputs = trigger.group(2).split(' ')
@@ -126,7 +127,7 @@ def deop(bot, trigger):
         return bot.reply('You must be an admin to perform this operation')
 
     if not trigger.user_object or not trigger.user_object.is_login or not trigger.user_object.registered:
-        return bot.msg(trigger.nick, 'Please login or register first at %s' % reverse("registration_register"))
+        return bot.msg(trigger.nick, 'Please login or register first at %s' % settings.FULL_URL)
 
     try:
         inputs = trigger.group(2).split(' ')

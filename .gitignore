@@ -2,6 +2,9 @@
 __pycache__/
 *.py[cod]
 
+html/static/admin/
+html/static/bootstrap/
+
 
 .idea/*
 *.sqlite3
@@ -53,7 +56,4 @@ coverage.xml
 # Django stuff:
 *.log
 *.pot
-
-# Sphinx documentation
-docs/_build/
 

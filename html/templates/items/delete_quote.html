@@ -1,0 +1,21 @@
+{% extends "base/template.html" %}
+
+{% block content %}
+{% include "base/alert/alert.html" %}
+
+ <div class="row">
+  <div class="container">
+    <div class="hero-unit center">
+
+        <form action="{% url "delete_quote" quote.id %}" method="post">{% csrf_token %}
+            <h2>Are you sure you want to delete quote with id {{ quote.id }} for {{ user.username }}?</h2>
+            <label>No <input type="radio" name="delete" value="0" checked="checked" /></label>
+            <label>Yes <input type="radio" name="delete" value="1" /></label>
+            <br/>
+            <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

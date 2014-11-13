@@ -8,19 +8,17 @@
 
      <ul class="nav navbar-nav">
        <li><a href="{% url "profile_overview" %}">Profile</a></a></li>
-       <li><a href="{% url "start" %}">Some Manager</a></li>
+       <li><a href="{% url "quotes" %}">Quotes</a></li>
+       <li><a href="{% url "items" %}">Info Items</a></li>
      </ul>
 
-      <p class="navbar-text pull-right"><a href="/logout">Log Out</a></p>
-
-    {% if user.is_superuser %}
-      <p class="navbar-text pull-right"><a href="/admin">Admin</a></p>
-    {%  endif %}
-
-    {% if user.username == 'flip' %}
-        <p class="navbar-text pull-right"><a href="javascript:history.go(0)">Reload</a></p>
-    {% endif %}
-
+     <p class="navbar-text pull-right"><a href="/logout">Log Out</a></p>
+     {% if user.is_superuser %}
+       <p class="navbar-text pull-right"><a href="/admin">Admin</a></p>
+     {% endif %}
+     {% if user.username == 'flip' %}
+       <p class="navbar-text pull-right"><a href="javascript:history.go(0)">Reload</a></p>
+     {% endif %}
   </div>
 </div>
 {% endblock %}

@@ -1,14 +1,20 @@
-from profile.models import InfoItem, Channel, Module, BotUser, Ban, Quote, SocketUser
+from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.models import Group
 from django.utils.translation import ugettext_lazy as _
 
-from django.contrib import admin
-from django.contrib.auth.models import Group
+from control.admin import BaseAdmin
+from profile.models import SocketUser, BotUser
+
 
 admin.site.unregister(Group)
 
-class BaseAdmin(admin.ModelAdmin):
-    pass
+
+@admin.register(SocketUser)
+class SocketUserAdmin(BaseAdmin):
+    fields = ('user', 'token', 'is_active')
+    readonly_fields = ('token',)
+    list_display = fields
 
 
 @admin.register(BotUser)
@@ -35,40 +41,3 @@ class BotUserAdmin(UserAdmin):
     search_fields = ('username', 'first_name', 'last_name', 'email')
     ordering = ('username',)
     filter_horizontal = ('groups', 'user_permissions',)
-
-
-@admin.register(InfoItem)
-class InfoItemAdmin(BaseAdmin):
-    fields = ('item', 'text')
-    list_display = fields
-
-
-@admin.register(Channel)
-class ChannelAdmin(BaseAdmin):
-    fields = ('channel', 'topic', 'key')
-    list_display = fields
-
-
-@admin.register(Module)
-class ModuleAdmin(BaseAdmin):
-    fields = ('name', 'enabled', 'filename')
-    list_display = fields
-
-
-@admin.register(Ban)
-class BanAdmin(BaseAdmin):
-    fields = ('nick', 'host')
-    list_display = fields
-
-
-@admin.register(Quote)
-class QuoteAdmin(BaseAdmin):
-    fields = ('user', 'quote', 'date_added')
-    list_display = fields
-
-
-@admin.register(SocketUser)
-class SocketUserAdmin(BaseAdmin):
-    fields = ('user', 'token', 'is_active')
-    readonly_fields = ('token',)
-    list_display = fields

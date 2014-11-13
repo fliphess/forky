@@ -1,0 +1,26 @@
+{% extends "base/template.html" %}
+{% load staticfiles %}
+
+{% block content %}
+
+  <div class="container">
+    <div class="row vertical-center-row">
+
+        <blockquote>
+          <div class="col-sm-9">
+            <p>{{ quote.quote }}</p>
+            <small>{{ user.real_name }}</small>
+          </div>
+        </blockquote>
+
+        <div class="btn-group pull-right">
+          <a href="{% url "quotes" %}" data-original-title="Back" data-toggle="tooltip" type="button" class="btn btn-sm btn-info"><i class="fa fa-backward">   Back to quotes</i></a>
+          <a href="{% url "delete_quote" quote.id %}" data-original-title="Delete quote" data-toggle="tooltip" type="button" class="btn btn-sm btn-default"><i class="fa fa-ban">   Delete quote</i></a>
+        </div>
+
+     </div>
+  </div>
+
+
+
+{% endblock %}

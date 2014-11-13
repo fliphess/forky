@@ -66,6 +66,11 @@ class RegistrationManager(models.Manager):
                 user.is_active = True
                 user.save()
 
+                # create a token for bot actions
+                token_user = SocketUser(user=user)
+                token_user.is_active = True
+                token_user.save()
+
                 profile.activation_key = self.model.ACTIVATED
                 profile.save()
 
@@ -87,12 +92,6 @@ class RegistrationManager(models.Manager):
         new_user = User.objects.create_user(username, email, password)
         new_user.is_active = False
         new_user.save()
-
-        # create a token for bot actions
-        token_user = SocketUser(user=new_user)
-        token_user.token = None
-        token_user.is_active = False
-        token_user.save()
 
         registration_profile = self.create_profile(new_user)
 
