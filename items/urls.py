@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, url
 from django.contrib.auth.decorators import login_required
-from items.views import AddQuote, QuotesView, DeleteQuote, ShowQuote
+from items.views import AddQuote, QuotesView, DeleteQuote, ShowQuote, InfoItemView, SendInfoItemToChannel
 
 
 urlpatterns = patterns(
@@ -13,5 +13,6 @@ urlpatterns = patterns(
     url(r'^quotes/delete/(?P<pk>\d+)?$', login_required(DeleteQuote.as_view()), name='delete_quote'),
 
     # Info items
-    # TODO
+    url(r'^items/?$', login_required(InfoItemView.as_view()), name='items'),
+    url(r'^items/(?P<pk>\d+)/?$', login_required(SendInfoItemToChannel.as_view()), name='item_view'),
 )

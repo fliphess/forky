@@ -1,6 +1,5 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from chat.utils import color
 
 
 class Channel(models.Model):
@@ -41,5 +40,3 @@ class IRCMessage(models.Model):
         return self.message[:50]
     short_message.short_description = _("Message")
 
-    def color(self):
-        return color(self.nickname)

@@ -37,7 +37,7 @@ class GetOps(BaseView):
             return render(request, self.template, data)
 
         try:
-            self.send_2_socket(username=user.username, token=token, command=command)
+            send_2_socket(username=user.username, token=token, command=command)
         except SocketSenderError as e:
             data.update({'success': False, 'alert': True, 'message': e})
             return render(request, self.template, data)
@@ -45,12 +45,12 @@ class GetOps(BaseView):
         data.update({'success': True, 'alert': True, 'message': '%s send to bot!' % command})
         return render(request, self.template, data)
 
-    @staticmethod
-    def send_2_socket(username, token, command):
-        a = SocketSender(user=username, token=token, unix_socket=settings.LISTENER_SOCKET)
-        a.connect()
-        a.send(command)
-        a.close()
+
+def send_2_socket(username, token, command):
+    a = SocketSender(user=username, token=token, unix_socket=settings.LISTENER_SOCKET)
+    a.connect()
+    a.send(command)
+    a.close()
 
 
 class GetVoice(GetOps):
@@ -64,7 +64,7 @@ class SendMessage(GetOps):
 
     def post(self, request):
         user = get_object_or_404(BotUser, username=request.user.username)
-        data = Status(user=user, alert=True, success=False, message='Error regenerating token!')
+        data = Status(user=user, alert=True, success=False, message='Error sending message to channel!')
 
         if not getattr(user, self.restr, None):
             data.update({'success': False,
@@ -86,7 +86,7 @@ class SendMessage(GetOps):
             return render(request, self.template, data)
 
         try:
-            self.send_2_socket(username=user.username, token=token, command=command)
+            send_2_socket(username=user.username, token=token, command=command)
         except SocketSenderError as e:
             data.update({'success': False, 'alert': True, 'message': e})
             return render(request, self.template, data)

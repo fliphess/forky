@@ -67,7 +67,7 @@ class BotUser(AbstractUser):
 
 class SocketUser(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, unique=True)
-    token = models.CharField('token', max_length=255, unique=True, db_index=True)
+    token = models.CharField('token', max_length=255, unique=True, db_index=True, default=None)
     is_active = models.BooleanField('active', default=False)
 
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):

@@ -104,6 +104,7 @@ SOCKET_COMMANDS = {
     "give_ops": "MODE %s +o %s",
     "give_voice": "MODE %s +v %s",
     "send_msg": "PRIVMSG %s :%s",
+    "send_item": "PRIVMSG %s:[%s] - %s"
 }
 
 # BOT SETTINGS
@@ -125,12 +126,12 @@ IRC_SERVER_VERIFY_SSL = False
 IRC_SERVER_SASL = False
 
 # REGISTRATION SETTINGS
-REGISTRATION_OPEN=True
-ACCOUNT_ACTIVATION_DAYS=1
-EMAIL_HOST='localhost'
-EMAIL_PORT=1025
-EMAIL_HOST_USER=None        # 'username'
-EMAIL_HOST_PASSWORD=None    # 'password'
+REGISTRATION_OPEN = True
+ACCOUNT_ACTIVATION_DAYS = 1
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
+EMAIL_HOST_USER = None        # 'username'
+EMAIL_HOST_PASSWORD = None    # 'password'
 
 EMAIL_BAD_DOMAIN_DB = 'db/bad_domain_list.db'
 with open(EMAIL_BAD_DOMAIN_DB) as l:

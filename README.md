@@ -66,21 +66,20 @@ edit control/settings.py
     5: 'superuser'
 }
 
+## Cool - TODO
+- [ ] http://cssdeck.com/labs/twitter-bootstrap-tabbed-login-and-signup-register-forms-interface
+- [ ] http://bixly.com/blog/awesome-forms-django-crispy-forms/
+
+
 ## Work in Progress:
 - [ ] Quotes
-- [ ] Add created by field in model 
-- [ ] fix carousel 
+- [ ] Add created by field in models 
 - [ ] allow creation for quotes not the user itself, but everyone
-
 - [ ] add quote module 
-- [ ] complain  quote function 
-- [ ] complain module that taggs users 
-- [ ] if complain N times => take user rights to set quotes etc 
-- [ ] 
+- [ ] items apps to view ones quotes/infoitems/etc
 
 
 ### Django frontend
-
 - [X] User registration through django web ui link and email
 - [X] adjust user registration to notify token through private message OR email
 - [X] Token generation for IRC "login"
@@ -90,12 +89,10 @@ edit control/settings.py
 - [X] send to channel/priv functionality (also msg oneself to change settings)
 - [X] api view to send data to channel using registration token or user/pass
 - [X] socket listener buttons in profile
+- [X] fix carousel 
 - [ ] live log for superusers (all events logged to db)
 - [ ] proper edit profile page with more then just a basic django form
-- [ ] http://bixly.com/blog/awesome-forms-django-crispy-forms/
-- [ ] items apps to view ones quotes/infoitems/etc
 - [ ] -Fully- implement register/login through email AND bot 
-- [ ] http://cssdeck.com/labs/twitter-bootstrap-tabbed-login-and-signup-register-forms-interface
 
 ### Bot
 - [X] .meet <user> module to start the registration process
@@ -108,19 +105,14 @@ edit control/settings.py
 - [X] rewrite decrypt / socket server thing to log incoming data for each user
 - [ ] trigger module that updates seen data
 - [ ] .seen <user> module that gets the last seen data from database
-- [ ] quotes module 
+- [ ] .quotes module 
 - [ ] auto ban on join
-- [ ] hard exit on disconnection
-- [ ] supervisor task to keep the bot running
 - [ ] auto load module 
 - [ ] listener module that auto logout all parted/quitted/left
 - [ ] auto channel to +i mode
 - [ ] superuser module to request all data of a user, send in privmsg
 - [ ] fix endless reload loop in multiple threads while func.thread(False)
-- [ ] socket listener control protocol + options to start/stop/reload the bot
 - [ ] remove any other user restriction but the ones in the user model
-- [ ] get settings from django models instead of a huge django.conf.settings 
-
 
 ### ORM
 - [X] adjust willie modules to use django orm and add to modules + initial_data.json
@@ -131,3 +123,10 @@ edit control/settings.py
 - [ ] channel modes in channel model
 - [ ] event/socket_logging/channel_logging model for stats etc, with rotation 
 - [ ] settings table for all irc/socket/application settings that are NOT Django
+
+### System
+- [ ] get settings from django models instead of a huge django.conf.settings 
+- [ ] supervisor task to keep the bot running
+- [ ] hard exit on disconnection
+- [ ] socket listener control protocol + options to start/stop/reload the bot
+- [ ] get user complaint => take user rights to set quotes, user rating etc 
