@@ -18,7 +18,7 @@ As much as possible i'm trying to make this bot multiple channel supporting, but
 Operator, voice, banned etc are user based, so operator means operator on all channels the bot is in.
 
 Feel free to join me in this irc project! i love pull requests so please do. I'm making a lot of changes at the moment, 
- so any contact would be appreciated :)
+ so any contact in advance would be appreciated :)
 
 
 ## Install 
