@@ -217,7 +217,7 @@ def restrict(value):
     """Decorator. Equivalent to func.restrict = value.
 
     Args:
-        value: Priority can be one of ('all', 'user', 'registered', 'staff', 'superuser')
+        value: Priority can be one of ('user', 'registered', 'staff', 'superuser')
 
         Defaults to user.
 

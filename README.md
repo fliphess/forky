@@ -72,12 +72,22 @@ edit control/settings.py
 
 
 ## Work in Progress:
-- [ ] trigger module that updates seen data
+`sys / first`
+- [ ] "replace" origin with django model 
+- [ ] - log events from socket server right after decryption and auth
+- [ ] - Update last seen field in bot class where user_object is set
+
+`orm`
+- [ ] Create socket event model 
+- [ ] Create irc event model 
+- [ ] Create channel message model
+
+`mods`
+- [ ] Create log event module
+- [ ] Create auto ban function on JOIN event module
+- [ ] Create log message module
+- [ ] listener module that auto logout all parted/quitted/left module
 - [ ] .seen <user> module that gets the last seen data from database
-- [ ] listener module that auto logout all parted/quitted/left
-- [ ] replace origin with django model 
-- [ ] auto ban on join
-- [ ] Last seen field in user model
 
 
 ### Django frontend
@@ -101,7 +111,6 @@ edit control/settings.py
 ### Bot
 - [X] .meet <user> module to start the registration process
 - [X] about information module
-- [X] auto reload (all) module(s) functionality
 - [X] restrict modules to the corresponding user status
 - [X] login/register module
 - [X] socket listener to send raw irc to server
@@ -112,15 +121,15 @@ edit control/settings.py
 - [ ] auto load module 
 - [ ] auto channel to +i mode module
 - [ ] superuser module to request all data of a user, send in privmsg
+- [ ] auto reload (all) module(s) functionality
 - [ ] fix endless reload loop in multiple threads while func.thread(False) in reload module
 - [ ] remove any other user restriction but the ones in the user model
-
+- [ ] create proper user restriction function or use the groups from django
 
 ### ORM
 - [X] adjust willie modules to use django orm and add to modules + initial_data.json
 - [X] Quotes Model
 - [X] Separate models into apps
-
 - [ ] edit django settings module or store all non-django settings in database
 - [ ] channel modes in channel model
 - [ ] event/socket_logging/channel_logging model for stats etc, with rotation 
@@ -131,4 +140,5 @@ edit control/settings.py
 - [ ] supervisor task to keep the bot running
 - [ ] hard exit on disconnection or auto reconnect
 - [ ] socket listener control protocol + options to start/stop/reload the bot
-- [ ] request removal for info items quotes etc 
+- [ ] request removal for info items quotes etc
+
