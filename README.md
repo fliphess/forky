@@ -14,7 +14,7 @@ Feel free to join me in this irc project! i love pull requests so please do :)
 
 ## IMPORTANT:
 
-This ircbot is was another obsessive week of coding. I started something, to never finish it... Although the bot is running somehow functional, it's buggy and not actively used. 
+This ircbot is was another obsessive month of coding. I started something, to never finish it... Although the bot is running somehow functional, it's buggy and not actively used. 
 
 I had a lot of fun working on it, and i'm pretty sure there will be another time in the future i'll continue or rewrite it somehow, but for now i'm not actively coding or fixxing bugs.... 
 
