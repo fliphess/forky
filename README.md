@@ -29,7 +29,7 @@ If you want to burn your fingers on it, be my guest, i'll happily answer all you
 ### Prerequisistes
 ```bash
  
-    git clone git@github.com:fliphess/django-ircbot.git
+    git clone git@github.com:fliphess/forky.git
     cd django-ircbot 
     pip install -r requirements.txt
     ./manage.py syncdb  
@@ -50,12 +50,11 @@ edit control/settings.py
 
 ## Registration Flow
 1. Create user account on site, or be notified the register page using .meet <name>
-2. Get email, visit link
-3. Subscribed
-4. Edit profile, set nick, hostname and other irc data 
-5. Generate registration token 
-6. msg bot /msg <botnick> register <token>
-7. you are registered!
+2. Get email, visit link to get subscribed.
+3. Edit profile, set nick, hostname and other irc data 
+4. Generate registration token 
+5. msg bot /msg <botnick> register <token>
+6. you are registered!
 
 ## Login Flow
 1. Login to django web ui
@@ -83,9 +82,9 @@ edit control/settings.py
 - [ ] trigger module that updates seen data
 - [ ] .seen <user> module that gets the last seen data from database
 - [ ] listener module that auto logout all parted/quitted/left
-- [ ] replace origin with django model 
+- [ ] replace Origin class with django model 
 - [ ] auto ban on join
-- [ ] Last seen field in user model
+- [ ] Update last seen field in user model
 
 
 ### Django frontend
@@ -139,4 +138,5 @@ edit control/settings.py
 - [ ] supervisor task to keep the bot running
 - [ ] hard exit on disconnection or auto reconnect
 - [ ] socket listener control protocol + options to start/stop/reload the bot
+- [ ] Make socker listener function more then just echo raw to irc 
 - [ ] request removal for info items quotes etc 
