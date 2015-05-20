@@ -15,6 +15,14 @@ set at login, but never unchecked when parting/disconnecting/in time/etc so stil
 
 Feel free to join me in this irc project! i love pull requests so please do :)
 
+## IMPORTANT:
+
+This ircbot is was another obsessive week of coding. I started something, to never finish it... Although the bot is running somehow functional, it's buggy and not actively used. 
+
+I had a lot of fun working on it, and i'm pretty sure there will be another time in the future i'll continue or rewrite it somehow, but for now i'm not actively coding or fixxing bugs.... 
+
+If you want to burn your fingers on it, be my guest, i'll happily answer all your questions, but don't expect it to be clone and play :) 
+
 
 ## Install 
 
