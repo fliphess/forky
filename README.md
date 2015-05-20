@@ -4,14 +4,11 @@ Forky is a irc bot based on willie but uses django models for database actions.
 
 This bot is not fully compatible anymore with all willie modules, but it does not take much refactoring. 
 
-While still heavily under development, both the bootstrap web interface, as the user interaction through the irc bot 
-are both kinda sorta functional 
+While still heavily under development, both the bootstrap web interface, as the user interaction through the irc bot are both kinda sorta functional 
 
-This bot does not send passwords in plain text to the irc bot, but uses a token based system, where after each action, 
-your token is automagically refreshed, this way avoiding you to use the password of you registered user account to be send over irc. 
+This bot does not send passwords in plain text to the irc bot, but uses a token based system, where after each action, your token is automagically refreshed, this way avoiding you to use the password of your registered user account to be send over irc. 
 
-At the moment most of the modules don't require a token to use the module, but check for a is_login flag, which is atm only 
-set at login, but never unchecked when parting/disconnecting/in time/etc so still lots to do :) 
+At the moment most of the modules don't require a token to use the module, but check for a is_login flag, which is currently only set at login, but never unchecked when parting/disconnecting/in time/etc so still lots to do :) 
 
 Feel free to join me in this irc project! i love pull requests so please do :)
 
